@@ -1,0 +1,323 @@
+/* Global Styles */
+body {
+  margin: 0;
+  padding: 0;
+  background: #0f0f23;
+  color: #e0e0e0;
+}
+
+#root {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  color: #e0e0e0;
+}
+
+/* App Container */
+.app-container {
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+  min-height: 100vh;
+  color: #e0e0e0;
+}
+
+/* Section Layout */
+.roster-section {
+  padding: 1rem;
+  max-width: 100%;
+  margin: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Headers */
+.section-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.section-header h2,
+.guild-header h2 {
+  color: #ffd700;
+  margin: 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.section-header h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.guild-header h2 {
+  font-size: 1.8rem;
+}
+
+/* Buttons */
+.guild-name-button {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  color: #ffffff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+  margin: 0.5rem 0;
+}
+
+.guild-name-button:hover {
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(99, 102, 241, 0.4);
+}
+
+.guild-name-button:active {
+  transform: translateY(0);
+}
+
+.navigation-buttons {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.nav-button {
+  background: rgba(30, 30, 30, 0.8);
+  color: #e2e8f0;
+  border: 2px solid #4a5568;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.nav-button:hover {
+  background: rgba(50, 50, 50, 0.9);
+  border-color: #6b7280;
+}
+
+.nav-button.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-color: #667eea;
+  color: white;
+}
+
+.refresh-button {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+}
+
+.refresh-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+}
+
+.refresh-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.guild-name-button:hover {
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(99, 102, 241, 0.4);
+}
+
+/* Messages */
+.welcome-message {
+  text-align: center;
+  padding: 4rem 2rem;
+  margin: 2rem auto;
+  max-width: 600px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.welcome-message h2 {
+  color: #e2e8f0;
+  font-size: 2rem;
+  margin: 0 0 1rem 0;
+  font-weight: 600;
+}
+
+.welcome-message p {
+  color: #a0aec0;
+  font-size: 1.1rem;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.loading-message,
+.error-message,
+.no-roster {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.1rem;
+}
+
+.error-message {
+  color: #ff6b6b;
+  background: rgba(255, 107, 107, 0.1);
+  border: 1px solid #ff6b6b;
+  border-radius: 4px;
+  margin: 1rem auto;
+  max-width: 600px;
+}
+
+.loading-message {
+  color: #ffd700;
+  font-style: italic;
+  margin: 1rem 0;
+}
+
+.no-roster {
+  color: #888;
+}
+
+/* Grid Layouts */
+.characters-grid,
+.roster-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  max-width: 1680px;
+  margin: 0 auto;
+  padding: 0;
+  justify-items: center;
+  box-sizing: border-box;
+}
+
+.roster-grid {
+  padding: 0 1rem;
+  max-width: 100%;
+  width: 100%;
+}
+
+/* Draggable Items */
+.character-item,
+.roster-item {
+  position: relative;
+  cursor: grab;
+  transition: all 0.2s ease;
+  border-radius: 8px;
+  overflow: visible;
+  width: fit-content;
+  height: fit-content;
+  will-change: transform, opacity;
+}
+
+.roster-item {
+  border: 2px dashed transparent;
+  transition: all 0.3s ease;
+}
+
+/* Override any cursor styles within the draggable area */
+.character-item *,
+.roster-item * {
+  cursor: inherit !important;
+}
+
+/* Add visual feedback for draggable area */
+.character-item:hover,
+.roster-item:hover {
+  transform: translateY(-2px);
+  z-index: 10000;
+}
+
+.character-item:hover {
+  box-shadow: 0 4px 12px rgba(64, 64, 64, 0.3);
+}
+
+.roster-item:hover {
+  border-color: rgba(99, 102, 241, 0.5);
+}
+
+.character-item:active,
+.roster-item:active {
+  cursor: grabbing;
+}
+
+/* Ensure children elements inherit the grabbing cursor when dragging */
+.character-item:active *,
+.roster-item:active * {
+  cursor: grabbing !important;
+}
+
+.character-item.dragging {
+  opacity: 0.7;
+  z-index: 1000;
+  transform: scale(0.95) rotate(1deg);
+  filter: brightness(0.9);
+  pointer-events: none;
+}
+
+/* Drag target feedback */
+.roster-item.drag-over {
+  border-color: #6366f1;
+  background: rgba(99, 102, 241, 0.1);
+  transform: translateY(-4px);
+}
+
+/* Responsive Design */
+@media (max-width: 1680px) {
+  .characters-grid,
+  .roster-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    justify-items: center;
+  }
+  
+  .app-header h1 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-container {
+    padding: 0.5rem;
+  }
+  
+  .app-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .guild-header h2 {
+    font-size: 1.4rem;
+    text-align: center;
+  }
+
+  .navigation-buttons {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.75rem;
+  }
+
+  .nav-button, .refresh-button {
+    width: 100%;
+    max-width: 200px;
+  }
+  
+  .characters-grid,
+  .roster-grid {
+    padding: 0 0.5rem;
+  }
+}

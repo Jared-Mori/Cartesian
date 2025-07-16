@@ -1,0 +1,412 @@
+/* Raid Builder Styles */
+.raidBuilder {
+  padding: 0.75rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.builderHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid #4a5568;
+}
+
+.builderHeader h2 {
+  color: #ffd700;
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.controls {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.sizeSelector {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.sizeButton {
+  background: rgba(30, 30, 30, 0.8);
+  color: #e2e8f0;
+  border: 2px solid #4a5568;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.sizeButton:hover {
+  border-color: #6b7280;
+}
+
+.sizeButton.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-color: #667eea;
+  color: white;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.actionButton {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.actionButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+}
+
+/* Main Panel Layout */
+.raidPanel {
+  background: rgba(30, 30, 30, 0.8);
+  border: 2px solid #4a5568;
+  border-radius: 8px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Raid Composition - 5 Column Layout */
+.raidComposition {
+  display: flex;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.slotColumn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  min-width: 0; /* Allow flexbox to shrink */
+}
+
+/* Raid Slots */
+.raidSlot {
+  height: 40px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.raidSlot.empty {
+  border: 2px dashed #4a5568;
+  background: rgba(15, 15, 15, 0.3);
+}
+
+.raidSlot.empty:hover {
+  border-color: #6b7280;
+  background: rgba(15, 15, 15, 0.5);
+}
+
+.raidSlot.filled {
+  border: 2px solid;
+  background: rgba(15, 15, 15, 0.6);
+}
+
+.raidSlot.filled:hover {
+  background: rgba(15, 15, 15, 0.8);
+  transform: translateY(-1px);
+}
+
+/* Filled slot that doesn't constrain the member card */
+.filledSlot {
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  box-sizing: border-box;
+}
+
+/* Role-specific styling */
+.raidSlot.tank.empty {
+  border-color: #ef4444;
+}
+
+.raidSlot.healer.empty {
+  border-color: #10b981;
+}
+
+.raidSlot.dps.empty {
+  border-color: #3b82f6;
+}
+
+/* Member Plates */
+.memberPlate {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0.2rem;
+  border-radius: 4px;
+}
+
+.memberName {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #e2e8f0;
+  text-align: center;
+  line-height: 1;
+  margin-bottom: 1px;
+}
+
+.memberSpec {
+  font-size: 0.6rem;
+  text-align: center;
+  line-height: 1;
+}
+
+/* Empty Slot Content */
+.emptySlot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.6;
+}
+
+.slotLabel {
+  font-size: 0.6rem;
+  font-weight: 600;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.slotNumber {
+  font-size: 0.7rem;
+  color: #6b7280;
+  margin-top: 1px;
+}
+
+/* Member Pool */
+.memberPool {
+  border-top: 1px solid #4a5568;
+  padding-top: 1rem;
+}
+
+.poolGrid {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.memberColumn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  min-width: 0; /* Allow flexbox to shrink */
+}
+
+/* Custom scrollbar for pool */
+.poolGrid::-webkit-scrollbar {
+  width: 6px;
+}
+
+.poolGrid::-webkit-scrollbar-track {
+  background: rgba(74, 85, 104, 0.2);
+  border-radius: 3px;
+}
+
+.poolGrid::-webkit-scrollbar-thumb {
+  background: rgba(74, 85, 104, 0.6);
+  border-radius: 3px;
+}
+
+.poolGrid::-webkit-scrollbar-thumb:hover {
+  background: rgba(74, 85, 104, 0.8);
+}
+
+/* Pool Members */
+.poolMember {
+  height: 40px;
+  border: 2px solid;
+  border-radius: 6px;
+  background: rgba(15, 15, 15, 0.6);
+  display: flex;
+  align-items: center;
+  padding: 0.2rem 0.3rem;
+  cursor: grab;
+  transition: all 0.3s ease;
+  gap: 0.3rem;
+  box-sizing: border-box;
+}
+
+.poolMember:hover {
+  background: rgba(15, 15, 15, 0.8);
+  transform: translateY(-1px);
+}
+
+.poolMember:active {
+  cursor: grabbing;
+}
+
+.roleIcon {
+  font-size: 0.6rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.memberContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 0; /* Allow text to truncate */
+}
+
+.memberName {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #e2e8f0;
+  text-align: center;
+  line-height: 1;
+  margin-bottom: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+.memberSpec {
+  font-size: 0.6rem;
+  text-align: center;
+  line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+.memberLevel {
+  font-size: 0.6rem;
+  color: #9ca3af;
+  background: rgba(74, 85, 104, 0.3);
+  padding: 1px 3px;
+  border-radius: 3px;
+  min-width: 16px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+/* Drag and Drop States */
+.raidSlot.dragOver {
+  border-color: #ffd700 !important;
+  background: rgba(255, 215, 0, 0.1) !important;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .raidBuilder {
+    padding: 0.5rem;
+  }
+
+  .builderHeader {
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: stretch;
+  }
+
+  .controls {
+    justify-content: space-between;
+  }
+
+  .raidComposition {
+    gap: 0.3rem;
+  }
+
+  .slotColumn {
+    gap: 0.25rem;
+  }
+
+  .raidSlot {
+    height: 38px;
+  }
+
+  .memberName {
+    font-size: 0.65rem;
+  }
+
+  .memberSpec {
+    font-size: 0.55rem;
+  }
+
+  .poolGrid {
+    gap: 0.3rem;
+  }
+
+  .memberColumn {
+    gap: 0.25rem;
+  }
+
+  .poolMember {
+    height: 38px;
+  }
+
+  .roleIcon {
+    font-size: 0.55rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .raidComposition {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .slotColumn {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+  }
+
+  .raidSlot {
+    height: 35px;
+    min-width: 80px;
+    flex: 1;
+  }
+
+  .poolGrid {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .memberColumn {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+  }
+
+  .poolMember {
+    height: 35px;
+    min-width: 80px;
+    flex: 1;
+  }
+}

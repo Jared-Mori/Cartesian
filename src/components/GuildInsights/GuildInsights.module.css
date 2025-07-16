@@ -1,0 +1,65 @@
+/* Guild Insights Section */
+.guildInsights {
+  background: rgba(30, 30, 30, 0.8);
+  border: 2px solid #4a5568;
+  border-radius: 8px;
+  padding: 1.5rem;
+  backdrop-filter: blur(10px);
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+.guildInsights h3 {
+  color: #ffd700;
+  margin: 0 0 0.75rem 0;
+  font-size: 1.1rem;
+  border-bottom: 1px solid #4a5568;
+  padding-bottom: 0.25rem;
+  flex-shrink: 0;
+  font-weight: 600;
+}
+
+.insightsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  flex: 1;
+  align-content: start;
+}
+
+.insightItem {
+  background: rgba(15, 15, 15, 0.6);
+  border-radius: 6px;
+  padding: 0.75rem;
+  text-align: center;
+  border: 1px solid rgba(74, 85, 104, 0.3);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.insightValue {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #a78bfa;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.insightLabel {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  line-height: 1.2;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .guildInsights {
+    height: auto;
+  }
+
+  .insightsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

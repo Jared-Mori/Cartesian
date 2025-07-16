@@ -1,0 +1,189 @@
+/* Character container styling - unified container for character info and gear */
+.characterContainer {
+  display: flex;
+  flex-direction: column;
+  width: 800px;
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  border-radius: 8px;
+  border: 1px solid #404040;
+  overflow: visible;
+  cursor: inherit;
+  user-select: none;
+  transition: all 0.2s ease;
+}
+
+/* Dragging state */
+.characterContainer.dragging {
+  opacity: 0.7;
+  transform: scale(0.98) rotate(1deg);
+  filter: brightness(0.9);
+}
+
+/* WoW Class Colors */
+.classDeathKnight { color: #C41E3A; }
+.classDemonHunter { color: #A330C9; }
+.classDruid { color: #FF7C0A; }
+.classEvoker { color: #33937F; }
+.classHunter { color: #AAD372; }
+.classMage { color: #3FC7EB; }
+.classMonk { color: #00FF98; }
+.classPaladin { color: #F48CBA; }
+.classPriest { color: #FFFFFF; }
+.classRogue { color: #FFF468; }
+.classShaman { color: #0070DD; }
+.classWarlock { color: #8788EE; }
+.classWarrior { color: #C69B6D; }
+
+/* Faction Colors */
+.factionHorde { color: #B30000; }
+.factionAlliance { color: #0078FF; }
+
+.characterHeader {
+  padding: 16px;
+  background: linear-gradient(135deg, #2a2a2a 0%, #1e1e1e 100%);
+  border-bottom: 1px solid #404040;
+  color: #e0e0e0;
+}
+
+.gearSection {
+  padding: 0;
+}
+
+/* Remove the container styling from GearDisplay since it's now part of CharacterDisplay */
+.gearSection :global(.characterContainer) {
+  background: none;
+  border: none;
+  border-radius: 0;
+  margin: 0;
+  max-width: none;
+}
+
+.gearSection :global(.characterHeader) {
+  display: none;
+}
+
+.characterInfoContainer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.characterAvatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 8px;
+  border: 2px solid #404040;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  flex-shrink: 0;
+}
+
+.characterDetails {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.characterName {
+  color: #e0e0e0;
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
+  line-height: 1.2;
+}
+
+.characterLevel {
+  color: #cccccc;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+}
+
+.characterInfoText {
+  color: #cccccc;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+}
+
+.levelAndItemLevel {
+  color: #ffff00;
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+}
+
+.loadingText {
+  color: #888888;
+  margin: 8px 0 0 0;
+  font-size: 14px;
+  font-style: italic;
+}
+
+.errorText {
+  color: #ff4444;
+  margin: 8px 0 0 0;
+  font-size: 14px;
+  font-weight: 500;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+}
+
+/* Responsive design */
+@media (max-width: 848px) {
+  .characterContainer {
+    width: 100%;
+    max-width: 800px;
+  }
+  
+  .characterHeader {
+    padding: 12px;
+  }
+
+  .characterInfoContainer {
+    gap: 12px;
+  }
+
+  .characterAvatar {
+    width: 56px;
+    height: 56px;
+  }
+
+  .characterName {
+    font-size: 18px;
+  }
+
+  .characterInfoText {
+    font-size: 13px;
+  }
+
+  .levelAndItemLevel {
+    font-size: 12px;
+  }
+}
+
+/* Multiple characters grid layout */
+@media (min-width: 1400px) {
+  .charactersWrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    max-width: 1600px;
+    margin: 0;
+  }
+}
+
+@media (min-width: 900px) and (max-width: 1399px) {
+  .charactersWrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    max-width: 800px;
+    margin: 0;
+  }
+}
