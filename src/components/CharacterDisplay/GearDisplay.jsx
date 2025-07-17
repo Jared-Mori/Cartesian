@@ -3,7 +3,7 @@ import { fetchItemMedia } from '../../utils/blizzardApi';
 import ItemTooltip from './ItemTooltip';
 import styles from './GearDisplay.module.css';
 
-const QUALITY_COLORS = {
+export const QUALITY_COLORS = {
   'POOR': '#9d9d9d',
   'COMMON': '#ffffff',
   'UNCOMMON': '#1eff00',
@@ -130,7 +130,7 @@ export default function GearDisplay({ equippedItems, characterName, apiConfig })
         : element.offsetLeft + element.offsetWidth + 10, // Right of element for left column
       y: element.offsetTop
     });
-    setTooltipData(item);
+    setTooltipData(getItemId(item));
   };
 
   const handleTooltipHide = () => {
@@ -263,7 +263,7 @@ export default function GearDisplay({ equippedItems, characterName, apiConfig })
       </div>
 
       <ItemTooltip 
-        item={tooltipData}
+        itemId={tooltipData}
         position={tooltipPosition}
         onClose={handleTooltipHide}
       />

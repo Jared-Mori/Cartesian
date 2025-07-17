@@ -2,9 +2,9 @@
 
 export const CLASS_COLORS = {
   'Death Knight': '#C41E3A',
-  'Demon Hunter': '#A330C9',
+  // 'Demon Hunter': '#A330C9',
   'Druid': '#FF7C0A',
-  'Evoker': '#33937F',
+  // 'Evoker': '#33937F',
   'Hunter': '#AAD372',
   'Mage': '#3FC7EB',
   'Monk': '#00FF98',

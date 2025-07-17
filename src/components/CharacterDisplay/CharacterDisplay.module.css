@@ -21,21 +21,6 @@
   filter: brightness(0.9);
 }
 
-/* WoW Class Colors */
-.classDeathKnight { color: #C41E3A; }
-.classDemonHunter { color: #A330C9; }
-.classDruid { color: #FF7C0A; }
-.classEvoker { color: #33937F; }
-.classHunter { color: #AAD372; }
-.classMage { color: #3FC7EB; }
-.classMonk { color: #00FF98; }
-.classPaladin { color: #F48CBA; }
-.classPriest { color: #FFFFFF; }
-.classRogue { color: #FFF468; }
-.classShaman { color: #0070DD; }
-.classWarlock { color: #8788EE; }
-.classWarrior { color: #C69B6D; }
-
 /* Faction Colors */
 .factionHorde { color: #B30000; }
 .factionAlliance { color: #0078FF; }

@@ -10,7 +10,7 @@
 }
 
 .guildHeader h1 {
-  color: #ffd700;
+  color: #a78bfa;
   margin: 0;
   font-size: 2.5rem;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
@@ -57,22 +57,26 @@
   color: #e2e8f0;
   border: 2px solid #4a5568;
   padding: 0.75rem 1.5rem;
-  border-radius: 8px;
+  border-radius: 6px;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(20, 184, 166, 0.2);
 }
 
 .tabButton:hover {
   background: rgba(50, 50, 50, 0.9);
   border-color: #6b7280;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3);
 }
 
 .activeTab {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
-  border-color: #667eea !important;
+  background: #14b8a6 !important;
+  border-color: #14b8a6 !important;
   color: white !important;
+  box-shadow: 0 4px 12px rgba(20, 184, 166, 0.4) !important;
 }
 
 .tabContent {
@@ -101,15 +105,23 @@
 }
 
 .retryButton {
-  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  background: #14b8a6;
   color: white;
-  border: none;
+  border: 2px solid #14b8a6;
   padding: 0.75rem 1.5rem;
   border-radius: 6px;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(20, 184, 166, 0.3);
+}
+
+.retryButton:hover {
+  background: #0d9488;
+  border-color: #0d9488;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(20, 184, 166, 0.4);
 }
 
 .statsGrid {
@@ -128,7 +140,7 @@
 }
 
 .statCard h3 {
-  color: #ffd700;
+  color: #a78bfa;
   margin: 0 0 1rem 0;
   font-size: 1.3rem;
   border-bottom: 1px solid #4a5568;
@@ -173,15 +185,44 @@
 /* Overview Layout */
 .overviewLayout {
   display: grid;
-  grid-template-columns: 400px 1fr;
-  gap: 2rem;
-  align-items: start;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 250px 280px;
+  gap: 1.5rem;
+  align-items: stretch;
+}
+
+.guildInsightsContainer {
+  grid-column: 1;
+  grid-row: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.activityPanel {
+  background: rgba(30, 30, 30, 0.8);
+  border: 2px solid #4a5568;
+  border-radius: 8px;
+  padding: 1.5rem;
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  grid-column: 2;
+  grid-row: 1;
 }
 
 .statsPanel {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  grid-column: 1;
+  grid-row: 2;
+  height: 100%;
+}
+
+.classDistributionCard {
+  grid-column: 2;
+  grid-row: 2;
+  height: 100%;
 }
 
 .compactStatCard {
@@ -190,28 +231,26 @@
   border-radius: 8px;
   padding: 1rem;
   backdrop-filter: blur(10px);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .compactStatCard h3 {
-  color: #ffd700;
+  color: #a78bfa;
   margin: 0 0 0.75rem 0;
   font-size: 1.1rem;
   border-bottom: 1px solid #4a5568;
   padding-bottom: 0.25rem;
-}
-
-.compactStatValue {
-  font-size: 2rem;
-  font-weight: bold;
-  color: #00ff88;
-  text-align: center;
-  text-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+  flex-shrink: 0;
 }
 
 .compactStatList {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
+  flex: 1;
+  overflow-y: auto;
 }
 
 .compactStatItem {
@@ -236,15 +275,112 @@
   font-weight: bold;
 }
 
-.activityPanel {
-  background: rgba(30, 30, 30, 0.8);
+/* Class Slots System */
+.classSlots {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.25rem;
+  flex: 1;
+  padding: 0.5rem 0;
+}
+
+/* Ensure both panels are same height on desktop */
+@media (min-width: 1025px) {
+  .compactStatCard {
+    min-height: 280px;
+  }
+}
+
+.classSlot {
+  background: rgba(15, 15, 15, 0.6);
   border: 2px solid #4a5568;
-  border-radius: 8px;
-  padding: 1.5rem;
-  backdrop-filter: blur(10px);
-  height: 300px;
+  border-radius: 4px;
+  padding: 0.25rem;
+  text-align: center;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 28px;
+  transition: all 0.3s ease;
+}
+
+.classSlot.empty {
+  border-style: dashed;
+  border-color: #374151;
+  opacity: 0.5;
+}
+
+.classSlot.filled {
+  border-style: solid;
+}
+
+.classSlot .className {
+  font-size: 0.625rem;
+  color: #e2e8f0;
+  margin-bottom: 0.125rem;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.classSlot .classCount {
+  font-size: 0.875rem;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.classSlot.empty .className {
+  color: #6b7280;
+}
+
+.classSlot.empty .classCount {
+  color: #374151;
+  font-size: 0.8rem;
+}
+
+/* Mobile Responsive */
+@media (max-width: 1024px) {
+  .overviewLayout {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto auto;
+    gap: 1rem;
+  }
+
+  .guildInsightsContainer {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .activityPanel {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .statsPanel {
+    grid-column: 1;
+    grid-row: 3;
+  }
+
+  .classDistributionCard {
+    grid-column: 1;
+    grid-row: 4;
+  }
+
+  .compactStatCard,
+  .activityPanel {
+    height: auto;
+    min-height: 280px;
+  }
+
+  .classSlots {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .classSlots {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 /* Roster Section */

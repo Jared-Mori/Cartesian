@@ -1,0 +1,276 @@
+/* Main container for the consumables display */
+.consumablesContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 16px;
+  color: #e0e0e0;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  border: 1px solid #404040;
+  border-radius: 8px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 12px;
+  background: linear-gradient(135deg, #2a2a2a 0%, #1e1e1e 100%);
+  border-radius: 8px;
+  border: 1px solid #404040;
+}
+
+.header h2 {
+  color: #e0e0e0;
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
+}
+
+.dropdown {
+  padding: 8px 12px;
+  background: linear-gradient(135deg, #2a2a2a 0%, #1e1e1e 100%);
+  border: 1px solid #404040;
+  border-radius: 4px;
+  color: #e0e0e0;
+  font-size: 12px;
+  min-width: 250px;
+  font-family: inherit;
+}
+
+.dropdown:focus {
+  outline: none;
+  border-color: #666;
+  box-shadow: 0 0 0 2px rgba(102, 102, 102, 0.3);
+}
+
+/* Grid layout for consumables sections */
+.consumablesGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+/* Individual category section */
+.categorySection {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.categorySection h3 {
+  color: #e0e0e0;
+  margin: 0 0 12px 0;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid #404040;
+  padding-bottom: 6px;
+  text-align: center;
+}
+
+/* Category items container - icons and names side by side */
+.categoryItems {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+/* Column for item icons */
+.itemsColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Column for item names */
+.namesColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+/* Individual consumable slot container */
+.gearSlot {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 8px;
+  background: linear-gradient(135deg, #2a2a2a 0%, #1e1e1e 100%);
+  border-radius: 4px;
+  border: 1px solid #3a3a3a;
+  transition: all 0.2s ease;
+  position: relative;
+  min-height: 48px;
+}
+
+.gearSlot:hover {
+  background: linear-gradient(135deg, #3a3a3a 0%, #2e2e2e 100%);
+  border-color: #4a4a4a;
+  transform: translateX(2px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Item icon container */
+.itemIcon {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  border: 2px solid #666;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+/* The actual item icon image */
+.iconImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 2px;
+}
+
+/* Loading state for icons */
+.loadingIcon {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #2a2a2a 0%, #1e1e1e 100%);
+  color: #888;
+  font-size: 10px;
+}
+
+/* Empty slot icon */
+.emptySlotIcon {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 2px,
+    rgba(255, 255, 255, 0.1) 2px,
+    rgba(255, 255, 255, 0.1) 4px
+  );
+  border-radius: 2px;
+}
+
+.emptySlotText {
+  font-size: 8px;
+  color: #666;
+  text-align: center;
+  transform: rotate(-45deg);
+  white-space: nowrap;
+}
+
+/* Item level badge */
+.itemLevel {
+  position: absolute;
+  bottom: 1px;
+  right: 1px;
+  background: rgba(0, 0, 0, 0.9);
+  color: #ffff00;
+  font-size: 9px;
+  font-weight: bold;
+  padding: 1px 3px;
+  border-radius: 2px;
+  border: 1px solid #333;
+  text-shadow: 0 0 2px #000;
+  min-width: 14px;
+  text-align: center;
+  z-index: 2;
+}
+
+/* Item information container */
+.itemInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 6px 8px;
+  background: linear-gradient(135deg, #2a2a2a 0%, #1e1e1e 100%);
+  border-radius: 4px;
+  border: 1px solid #3a3a3a;
+  transition: all 0.2s ease;
+  min-height: 48px;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.itemInfo:hover {
+  background: linear-gradient(135deg, #3a3a3a 0%, #2e2e2e 100%);
+  border-color: #4a4a4a;
+  transform: translateX(2px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Item name styling */
+.itemName {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.2;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-bottom: 2px;
+}
+
+.clickableItem {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.clickableItem:hover {
+  text-shadow: 0 0 4px currentColor;
+  transform: translateX(1px);
+}
+
+/* Item effect/description styling */
+.itemEffect {
+  font-size: 10px;
+  color: #888;
+  line-height: 1.2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .consumablesContainer {
+    padding: 12px;
+  }
+  
+  .consumablesGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .categoryItems {
+    gap: 12px;
+  }
+
+  .itemName {
+    font-size: 11px;
+  }
+
+  .itemEffect {
+    font-size: 9px;
+  }
+}

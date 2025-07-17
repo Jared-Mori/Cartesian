@@ -28,21 +28,12 @@ function GuildEvents({ events, onEventsChange }) {
       attendees: []
     };
 
-    const updatedEvents = [...events, event];
-    saveEvents(updatedEvents);
-    
-    setNewEvent({
-      title: '',
-      date: '',
-      time: '',
-      type: 'raid',
-      description: ''
-    });
+    saveEvents([...events, event]);
+    setNewEvent({ title: '', date: '', time: '', type: 'raid', description: '' });
   };
 
   const deleteEvent = (eventId) => {
-    const updatedEvents = events.filter(event => event.id !== eventId);
-    saveEvents(updatedEvents);
+    saveEvents(events.filter(event => event.id !== eventId));
   };
 
   const toggleAttendance = (eventId) => {
@@ -50,18 +41,17 @@ function GuildEvents({ events, onEventsChange }) {
     if (!playerName) return;
 
     const updatedEvents = events.map(event => {
-      if (event.id === eventId) {
-        const attendees = event.attendees || [];
-        const isAttending = attendees.includes(playerName);
-        
-        return {
-          ...event,
-          attendees: isAttending 
-            ? attendees.filter(name => name !== playerName)
-            : [...attendees, playerName]
-        };
-      }
-      return event;
+      if (event.id !== eventId) return event;
+      
+      const attendees = event.attendees || [];
+      const isAttending = attendees.includes(playerName);
+      
+      return {
+        ...event,
+        attendees: isAttending 
+          ? attendees.filter(name => name !== playerName)
+          : [...attendees, playerName]
+      };
     });
     
     saveEvents(updatedEvents);

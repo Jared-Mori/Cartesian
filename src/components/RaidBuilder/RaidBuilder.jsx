@@ -3,97 +3,71 @@ import styles from './RaidBuilder.module.css';
 import { getClassColor, getSpecRole } from '../../utils/wowData';
 import { fetchCharacterProfile } from '../../utils/blizzardApi';
 
-function RaidBuilder({ guildStats, rosterData = [] }) {
+function RaidBuilder({ rosterData = [] }) {
   const [raidSize, setRaidSize] = useState(25);
   const [raidComposition, setRaidComposition] = useState({});
   const [draggedMember, setDraggedMember] = useState(null);
 
   // Initialize raid slots based on size
   useEffect(() => {
+    const raidConfig = raidSize === 10 
+      ? { tank: 2, healer: 2, dps: 6 }
+      : { tank: 2, healer: 5, dps: 18 };
+    
     const slots = {};
-    if (raidSize === 10) {
-      // 2 tanks, 2 healers, 6 dps = 10 total
-      // Distribute evenly across 5 columns: 2 slots per column
-      for (let i = 0; i < 2; i++) slots[`tank-${i}`] = null;
-      for (let i = 0; i < 2; i++) slots[`healer-${i}`] = null;
-      for (let i = 0; i < 6; i++) slots[`dps-${i}`] = null;
-    } else {
-      // 2 tanks, 5 healers, 18 dps = 25 total
-      // Distribute evenly across 5 columns: 5 slots per column
-      for (let i = 0; i < 2; i++) slots[`tank-${i}`] = null;
-      for (let i = 0; i < 5; i++) slots[`healer-${i}`] = null;
-      for (let i = 0; i < 18; i++) slots[`dps-${i}`] = null;
-    }
+    Object.entries(raidConfig).forEach(([role, count]) => {
+      for (let i = 0; i < count; i++) {
+        slots[`${role}-${i}`] = null;
+      }
+    });
+    
     setRaidComposition(slots);
   }, [raidSize]);
 
   // Distribute slots evenly across 5 columns
   const getSlotColumns = () => {
-    // Order: tanks first, then healers, then dps
-    const tankSlots = Object.keys(raidComposition).filter(id => id.startsWith('tank')).sort();
-    const healerSlots = Object.keys(raidComposition).filter(id => id.startsWith('healer')).sort();
-    const dpsSlots = Object.keys(raidComposition).filter(id => id.startsWith('dps')).sort();
+    const slotsByRole = ['tank', 'healer', 'dps'].reduce((acc, role) => {
+      acc.push(...Object.keys(raidComposition).filter(id => id.startsWith(role)).sort());
+      return acc;
+    }, []);
     
-    const allSlots = [...tankSlots, ...healerSlots, ...dpsSlots];
-    const slotsPerColumn = raidSize === 10 ? 2 : 5;
-    const columns = [[], [], [], [], []];
-    
-    allSlots.forEach((slotId, index) => {
-      const columnIndex = index % 5;
-      columns[columnIndex].push(slotId);
+    const columns = Array.from({ length: 5 }, () => []);
+    slotsByRole.forEach((slotId, index) => {
+      columns[index % 5].push(slotId);
     });
     
     return columns;
   };
 
-  // Process real guild members from roster data
+  // Process guild members from roster data
   const processRosterData = async () => {
-    if (!rosterData || rosterData.length === 0) {
-      return [];
-    }
+    if (!rosterData?.length) return [];
     
-    const processedMembers = [];
-    
-    for (let index = 0; index < rosterData.length; index++) {
-      const member = rosterData[index];
+    return Promise.all(rosterData.map(async (member, index) => {
       try {
-        // Fetch detailed character profile
         const character = await fetchCharacterProfile(member.realm, member.name.toLowerCase());
-        
-        const className = character.character_class?.name || 'Unknown';
-        const spec = character.active_spec?.name || 'Unknown';
-        const level = character.level || 80;
-        const name = character.name || member.name || `Member${index + 1}`;
-        
-        // You can implement the role detection logic here
-        const role = getSpecRole(spec);
-        const classColor = getClassColor(className);
-
-        processedMembers.push({
+        return {
           id: index,
-          name: name,
-          class: className,
-          spec: spec,
-          role: role,
-          level: level,
-          classColor: classColor // Store the color directly
-        });
+          name: character.name || member.name || `Member${index + 1}`,
+          class: character.character_class?.name || 'Unknown',
+          spec: character.active_spec?.name || 'Unknown',
+          role: getSpecRole(character.active_spec?.name),
+          level: character.level || 80,
+          classColor: getClassColor(character.character_class?.name)
+        };
       } catch (error) {
         console.error(`Failed to fetch character ${member.name}:`, error);
-        // Fallback for failed API calls
-        processedMembers.push({
+        return {
           id: index,
           name: member.name || `Member${index + 1}`,
           class: 'Unknown',
           spec: 'Unknown',
           role: 'dps',
           level: 80,
-          classColor: '#666666' // Gray fallback color
-        });
+          classColor: '#666666'
+        };
       }
-    }
-    
-    return processedMembers;
+    }));
   };
 
   const [guildMembers, setGuildMembers] = useState([]);
@@ -144,26 +118,9 @@ function RaidBuilder({ guildStats, rosterData = [] }) {
   };
 
   const clearRaid = () => {
-    const slots = {};
-    Object.keys(raidComposition).forEach(key => {
-      slots[key] = null;
-    });
-    setRaidComposition(slots);
-  };
-
-  const exportRaid = () => {
-    const raidData = {
-      size: raidSize,
-      composition: raidComposition,
-      exportDate: new Date().toISOString()
-    };
-    const blob = new Blob([JSON.stringify(raidData, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `raid-composition-${raidSize}man-${new Date().toISOString().split('T')[0]}.json`;
-    a.click();
-    URL.revokeObjectURL(url);
+    setRaidComposition(prev => 
+      Object.keys(prev).reduce((acc, key) => ({ ...acc, [key]: null }), {})
+    );
   };
 
   // Reusable member card component
@@ -222,18 +179,14 @@ function RaidBuilder({ guildStats, rosterData = [] }) {
 
   const renderMemberPool = () => {
     const usedMemberIds = new Set(
-      Object.values(raidComposition)
-        .filter(Boolean)
-        .map(member => member.id)
+      Object.values(raidComposition).filter(Boolean).map(member => member.id)
     );
 
     const availableMembers = guildMembers.filter(member => !usedMemberIds.has(member.id));
-
-    // Organize members into 5 columns
-    const columns = [[], [], [], [], []];
+    const columns = Array.from({ length: 5 }, () => []);
+    
     availableMembers.forEach((member, index) => {
-      const columnIndex = index % 5;
-      columns[columnIndex].push(member);
+      columns[index % 5].push(member);
     });
 
     return columns.map((columnMembers, columnIndex) => (
@@ -254,24 +207,19 @@ function RaidBuilder({ guildStats, rosterData = [] }) {
         <div className={styles.controls}>
           <div className={styles.sizeSelector}>
             <button 
-              className={`${styles.sizeButton} ${raidSize === 10 ? styles.active : ''}`}
+              className={`${styles.sizeButton} btn-base transition-smooth p-half ${raidSize === 10 ? 'gradient-secondary' : ''}`}
               onClick={() => setRaidSize(10)}
             >
               10 Man
             </button>
             <button 
-              className={`${styles.sizeButton} ${raidSize === 25 ? styles.active : ''}`}
+              className={`${styles.sizeButton} btn-base transition-smooth p-half ${raidSize === 25 ? 'gradient-secondary' : ''}`}
               onClick={() => setRaidSize(25)}
             >
               25 Man
             </button>
-          </div>
-          <div className={styles.actions}>
-            <button onClick={clearRaid} className={styles.actionButton}>
+            <button onClick={clearRaid} className={`${styles.sizeButton} btn-base btn-primary p-half`}>
               Clear All
-            </button>
-            <button onClick={exportRaid} className={styles.actionButton}>
-              Export
             </button>
           </div>
         </div>

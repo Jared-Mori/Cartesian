@@ -1,3 +1,6 @@
+/* Import utilities */
+@import '../../styles/utilities.css';
+
 /* Raid Builder Styles */
 .raidBuilder {
   padding: 0.75rem;
@@ -15,7 +18,7 @@
 }
 
 .builderHeader h2 {
-  color: #ffd700;
+  color: #a78bfa;
   margin: 0;
   font-size: 1.5rem;
 }
@@ -35,43 +38,25 @@
   background: rgba(30, 30, 30, 0.8);
   color: #e2e8f0;
   border: 2px solid #4a5568;
-  padding: 0.5rem 1rem;
   border-radius: 6px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(20, 184, 166, 0.2);
 }
 
 .sizeButton:hover {
   border-color: #6b7280;
+  background: rgba(50, 50, 50, 0.9);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3);
 }
 
 .sizeButton.active {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-color: #667eea;
+  border-color: #14b8a6;
+  background: #14b8a6;
   color: white;
-}
-
-.actions {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.actionButton {
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-size: 0.9rem;
-}
-
-.actionButton:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+  box-shadow: 0 4px 12px rgba(20, 184, 166, 0.4);
 }
 
 /* Main Panel Layout */
@@ -318,8 +303,8 @@
 
 /* Drag and Drop States */
 .raidSlot.dragOver {
-  border-color: #ffd700 !important;
-  background: rgba(255, 215, 0, 0.1) !important;
+  border-color: #a78bfa !important;
+  background: rgba(167, 139, 250, 0.1) !important;
 }
 
 /* Mobile Responsive */

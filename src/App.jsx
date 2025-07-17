@@ -52,7 +52,7 @@ function App() {
     }
   };
 
-  // Drag and drop handlers for roster reordering - memoized to prevent re-creation
+  // Drag and drop handlers for roster reordering
   const handleDragStart = useCallback((e, index) => {
     setDraggedIndex(index);
     e.dataTransfer.effectAllowed = 'move';
@@ -77,18 +77,15 @@ function App() {
     e.preventDefault();
     e.currentTarget.classList.remove('drag-over');
     
-    if (draggedIndex === null || draggedIndex === dropIndex) return;
+    if (draggedIndex === null || draggedIndex === dropIndex) {
+      setDraggedIndex(null);
+      return;
+    }
     
     setRosterData(currentRoster => {
       const newRoster = [...currentRoster];
-      const draggedItem = newRoster[draggedIndex];
-      
-      // Remove dragged item
-      newRoster.splice(draggedIndex, 1);
-      
-      // Insert at new position
+      const [draggedItem] = newRoster.splice(draggedIndex, 1);
       newRoster.splice(dropIndex, 0, draggedItem);
-      
       return newRoster;
     });
     

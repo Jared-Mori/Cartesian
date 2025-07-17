@@ -1,0 +1,110 @@
+/* Common utility classes for reusable styles */
+
+/* Layout utilities */
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-gap-1 { gap: 1rem; }
+.flex-gap-half { gap: 0.5rem; }
+
+/* Padding utilities */
+.p-1 { padding: 1rem; }
+.p-half { padding: 0.5rem; }
+.px-1 { padding: 0 1rem; }
+.py-1 { padding: 1rem 0; }
+
+/* Border radius utilities */
+.rounded { border-radius: 8px; }
+.rounded-sm { border-radius: 4px; }
+
+/* Common gradients */
+.gradient-primary {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+}
+
+.gradient-secondary {
+  background: #14b8a6;
+  box-shadow: 0 4px 12px rgba(20, 184, 166, 0.4);
+}
+
+.gradient-danger {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+}
+
+.gradient-success {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+.gradient-dark {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+}
+
+.gradient-darker {
+  background: linear-gradient(135deg, #2a2a2a 0%, #1e1e1e 100%);
+}
+
+/* Common transitions */
+.transition-smooth {
+  transition: all 0.3s ease;
+}
+
+.transition-fast {
+  transition: all 0.2s ease;
+}
+
+/* Button styles */
+.btn-base {
+  border: none;
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background: #14b8a6;
+  color: white;
+  border: 2px solid #14b8a6;
+  box-shadow: 0 2px 8px rgba(20, 184, 166, 0.3);
+}
+
+.btn-primary:hover {
+  background: #0d9488;
+  border-color: #0d9488;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(20, 184, 166, 0.4);
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: white;
+}
+
+.btn-success {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+}
+
+/* Card styles */
+.card {
+  background: rgba(30, 30, 30, 0.8);
+  border: 1px solid #404040;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.card-dark {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  border: 1px solid #404040;
+  border-radius: 8px;
+  padding: 1rem;
+}

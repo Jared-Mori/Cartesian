@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './ItemTooltip.module.css';
+import * as BlizzardAPI from '../../utils/blizzardApi';
 
 const QUALITY_COLORS = {
   'POOR': '#9d9d9d',
@@ -66,31 +67,70 @@ const STAT_DISPLAY_NAMES = {
   'EXPERTISE_RATING': 'Expertise',
 };
 
-export default function ItemTooltip({ item, position, onClose }) {
-  if (!item) return null;
+export default function ItemTooltip({ itemId, position, onClose }) {
+  const [itemData, setItemData] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  const getQualityColor = (item) => {
-    const qualityType = item?.quality?.type || item?.item?.quality?.type || item?.preview_item?.quality?.type;
+  useEffect(() => {
+    if (!itemId) {
+      setItemData(null);
+      return;
+    }
+
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const data = await BlizzardAPI.fetchItemData(itemId);
+        setItemData(data);
+      } catch (error) {
+        console.error(`Failed to fetch item data for ${itemId}:`, error);
+        setItemData(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [itemId]);
+
+  if (!itemId) return null;
+  if (loading) {
+    return (
+      <div 
+        className={styles.tooltip}
+        style={{
+          left: position.x,
+          top: position.y
+        }}
+      >
+        <div className={styles.fontTitle}>Loading...</div>
+      </div>
+    );
+  }
+  if (!itemData) return null;
+
+  const getQualityColor = (itemData) => {
+    const qualityType = itemData?.quality?.type || itemData?.item?.quality?.type || itemData?.preview_item?.quality?.type;
     return QUALITY_COLORS[qualityType] || QUALITY_COLORS['COMMON'];
   };
 
-  const getItemLevel = (item) => {
-    return item?.item_level || item?.level || item?.item?.item_level || '';
+  const getItemLevel = (itemData) => {
+    return itemData?.item_level || itemData?.level || itemData?.item?.item_level || '';
   };
 
-  const getSlotType = (item) => {
-    const inventoryType = item?.inventory_type?.type || item?.inventory_type?.name || 
-                         item?.preview_item?.inventory_type?.type || item?.preview_item?.inventory_type?.name ||
-                         item?.slot?.type || '';
+  const getSlotType = (itemData) => {
+    const inventoryType = itemData?.inventory_type?.type || itemData?.inventory_type?.name || 
+                         itemData?.preview_item?.inventory_type?.type || itemData?.preview_item?.inventory_type?.name ||
+                         itemData?.slot?.type || '';
     return SLOT_NAMES[inventoryType] || inventoryType;
   };
 
-  const getItemSubclass = (item) => {
-    return item?.item_subclass?.name || item?.preview_item?.item_subclass?.name || '';
+  const getItemSubclass = (itemData) => {
+    return itemData?.item_subclass?.name || itemData?.preview_item?.item_subclass?.name || '';
   };
 
-  const getItemStats = (item) => {
-    const stats = item?.stats || item?.preview_item?.stats || [];
+  const getItemStats = (itemData) => {
+    const stats = itemData?.stats || itemData?.preview_item?.stats || [];
     return stats.map(stat => ({
       type: stat.type?.type || stat.type,
       typeName: stat.type?.name || stat.type,
@@ -100,28 +140,28 @@ export default function ItemTooltip({ item, position, onClose }) {
     }));
   };
 
-  const getBindingInfo = (item) => {
-    return item?.binding?.name || item?.preview_item?.binding?.name || '';
+  const getBindingInfo = (itemData) => {
+    return itemData?.binding?.name || itemData?.preview_item?.binding?.name || '';
   };
 
-  const getWeaponInfo = (item) => {
-    return item?.weapon || item?.preview_item?.weapon || null;
+  const getWeaponInfo = (itemData) => {
+    return itemData?.weapon || itemData?.preview_item?.weapon || null;
   };
 
-  const getSpellInfo = (item) => {
-    return item?.spells || item?.preview_item?.spells || [];
+  const getSpellInfo = (itemData) => {
+    return itemData?.spells || itemData?.preview_item?.spells || [];
   };
 
-  const getRequirements = (item) => {
-    return item?.requirements || item?.preview_item?.requirements || {};
+  const getRequirements = (itemData) => {
+    return itemData?.requirements || itemData?.preview_item?.requirements || {};
   };
 
-  const getDurability = (item) => {
-    return item?.durability || item?.preview_item?.durability || null;
+  const getDurability = (itemData) => {
+    return itemData?.durability || itemData?.preview_item?.durability || null;
   };
 
-  const getSellPrice = (item) => {
-    const sellPrice = item?.sell_price || item?.preview_item?.sell_price;
+  const getSellPrice = (itemData) => {
+    const sellPrice = itemData?.sell_price || itemData?.preview_item?.sell_price;
     if (!sellPrice) return null;
     
     if (sellPrice.display_strings) {
@@ -199,18 +239,18 @@ export default function ItemTooltip({ item, position, onClose }) {
     return `rgb(${color.r}, ${color.g}, ${color.b})`;
   };
 
-  const qualityColor = getQualityColor(item);
-  const itemLevel = getItemLevel(item);
-  const slotType = getSlotType(item);
-  const itemSubclass = getItemSubclass(item);
-  const itemStats = getItemStats(item);
-  const binding = getBindingInfo(item);
-  const weapon = getWeaponInfo(item);
-  const spells = getSpellInfo(item);
-  const requirements = getRequirements(item);
-  const durability = getDurability(item);
-  const sellPrice = getSellPrice(item);
-  const uniqueEquipped = item?.unique_equipped || item?.preview_item?.unique_equipped;
+  const qualityColor = getQualityColor(itemData);
+  const itemLevel = getItemLevel(itemData);
+  const slotType = getSlotType(itemData);
+  const itemSubclass = getItemSubclass(itemData);
+  const itemStats = getItemStats(itemData);
+  const binding = getBindingInfo(itemData);
+  const weapon = getWeaponInfo(itemData);
+  const spells = getSpellInfo(itemData);
+  const requirements = getRequirements(itemData);
+  const durability = getDurability(itemData);
+  const sellPrice = getSellPrice(itemData);
+  const uniqueEquipped = itemData?.unique_equipped || itemData?.preview_item?.unique_equipped;
 
   return (
     <div 
@@ -225,7 +265,7 @@ export default function ItemTooltip({ item, position, onClose }) {
         className={`${styles.fontTitle} ${styles.marginTitle}`}
         style={{ color: qualityColor }}
       >
-        {item.name}
+        {itemData.name}
       </div>
       
       {/* Item Level */}
@@ -236,9 +276,9 @@ export default function ItemTooltip({ item, position, onClose }) {
       )}
 
       {/* Transmog */}
-      {item.transmog && (
+      {itemData.transmog && (
         <div className={`${styles.fontItemLevel} ${styles.colorPink}`}>
-          {(item.transmog.display_string || item.transmog.item?.name || 'Transmogrified')
+          {(itemData.transmog.display_string || itemData.transmog.item?.name || 'Transmogrified')
             .split('\n')
             .map((line, index) => (
               <div key={index}>{line}</div>
@@ -257,7 +297,7 @@ export default function ItemTooltip({ item, position, onClose }) {
       {/* Item Type */}
       <div className={`${styles.flexSpaceBetween}`}>
         <span>{slotType}</span>
-        {!item.is_subclass_hidden && itemSubclass && (
+        {!itemData.is_subclass_hidden && itemSubclass && (
           <span>{itemSubclass}</span>
         )}
       </div>
@@ -295,9 +335,9 @@ export default function ItemTooltip({ item, position, onClose }) {
       )}
       
       {/* Armor */}
-      {item.armor && (
+      {itemData.armor && (
         <div className={`${styles.fontItemLevel}`}>
-          {item.armor.display?.display_string || `${item.armor.value} Armor`}
+          {itemData.armor.display?.display_string || `${itemData.armor.value} Armor`}
         </div>
       )}
       
@@ -316,16 +356,16 @@ export default function ItemTooltip({ item, position, onClose }) {
       )}
 
       {/* Enchantments */}
-      {item.enchantments && item.enchantments.length > 0 && (
+      {itemData.enchantments && itemData.enchantments.length > 0 && (
         <div className={`${styles.colorPink} ${styles.italic} ${styles.marginMedium}`}>
-          Enchanted: {item.enchantments[0].display_string || 'Enchanted'}
+          Enchanted: {itemData.enchantments[0].display_string || 'Enchanted'}
         </div>
       )}
 
       {/* Gems */}
-      {item.gems && item.gems.length > 0 && (
+      {itemData.gems && itemData.gems.length > 0 && (
         <div className={styles.marginLarge}>
-          {item.gems.map((gem, index) => (
+          {itemData.gems.map((gem, index) => (
             <div key={index} className={`${styles.colorLightGreen}`}>
               {gem.item?.name || gem.name || 'Gem'}
             </div>

@@ -20,14 +20,6 @@ export function getGuildApiConfig() {
 }
 
 /**
- * Legacy function for backward compatibility
- * @deprecated Use getGuildApiConfig() instead
- */
-export function getApiConfig() {
-  return getGuildApiConfig();
-}
-
-/**
  * Get an OAuth token with the client‑credentials grant.
  * Caches the token in memory until ~1 minute before expiry.
  */
@@ -190,8 +182,6 @@ export async function fetchGuildAchievements(realmSlug, guildName) {
 export async function fetchCharacterProfile(realmSlug, characterName, apiConfig = null) {
   const token = await getAccessToken();
 
-  console.log("Fetching character profile for:", characterName);
-
   // Use provided config or fall back to guild defaults
   const config_to_use = apiConfig || getGuildApiConfig();
   const apiBase = config_to_use.apiBase;
@@ -320,6 +310,35 @@ export async function fetchCharacterMedia(characterUrl) {
   if (!res.ok) {
     const text = await res.text();
     throw new Error(`Character media fetch failed: ${res.status} ${text}`);
+  }
+
+  const data = await res.json();
+  return data;
+}
+
+/**
+ * Fetch the data for a specific item
+ * @param {string} itemId  The ID of the item to fetch data for
+ * @param {Object} apiConfig Configuration object with region, locale, version
+ * @returns {Promise<Object>}  Item data object
+ */
+export async function fetchItemData(itemId, apiConfig = null) {
+  const token = await getAccessToken();
+
+  // Use provided config or fall back to defaults
+  const apiBase = apiConfig?.apiBase || config.BLIZZARD_API_BASE;
+  const locale = apiConfig?.locale || config.locale;
+  const namespace = apiConfig?.namespace || config.static_namespace;
+
+  const url =
+    `${apiBase}/data/wow/item/${itemId}` +
+    `?namespace=${namespace}&locale=${locale}`;
+
+  const res = await fetch(url, { headers: { Authorization: `Bearer ${token}` } });
+
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Item data fetch failed: ${res.status} ${text}`);
   }
 
   const data = await res.json();

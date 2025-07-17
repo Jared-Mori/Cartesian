@@ -1,5 +1,6 @@
 import React, { useEffect, useState, memo } from 'react';
 import { fetchCharacterProfile, fetchCharacterEquipment, fetchCharacterMedia } from '../../utils/blizzardApi';
+import { getClassColor } from '../../utils/wowData';
 import GearDisplay from './GearDisplay';
 import styles from './CharacterDisplay.module.css';
 import TalentDisplay from './TalentDisplay';
@@ -16,25 +17,6 @@ const CharacterDisplay = memo(function CharacterDisplay({
   const [characterData, setCharacterData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-
-  const getClassColorClass = (className) => {
-    const classMap = {
-      'Death Knight': 'classDeathKnight',
-      'Demon Hunter': 'classDemonHunter',
-      'Druid': 'classDruid',
-      'Evoker': 'classEvoker',
-      'Hunter': 'classHunter',
-      'Mage': 'classMage',
-      'Monk': 'classMonk',
-      'Paladin': 'classPaladin',
-      'Priest': 'classPriest',
-      'Rogue': 'classRogue',
-      'Shaman': 'classShaman',
-      'Warlock': 'classWarlock',
-      'Warrior': 'classWarrior'
-    };
-    return classMap[className] || '';
-  };
 
   // Helper function to get faction color CSS class based on race
   const getFactionColorClass = (raceName) => {
@@ -65,7 +47,6 @@ const CharacterDisplay = memo(function CharacterDisplay({
         setLoading(true);
         const profile = await fetchCharacterProfile(realm, characterName.toLowerCase(), apiConfig);
         const equipment = await fetchCharacterEquipment(realm, characterName.toLowerCase(), apiConfig);
-        console.log('Fetched equipment:', equipment);
         const charIcon = await fetchCharacterMedia(profile.media.href);
 
         setCharacterData({
@@ -129,11 +110,11 @@ const CharacterDisplay = memo(function CharacterDisplay({
             className={styles.characterAvatar}
           />
           <div className={styles.characterDetails}>
-            <h3 className={`${styles.characterName} ${styles[getClassColorClass(characterData.class)]}`}>
+            <h3 className={styles.characterName} style={{ color: getClassColor(characterData.class) }}>
               {characterData.name}
             </h3>
             <p className={styles.characterInfoText}>
-              <span className={styles[getFactionColorClass(characterData.race)]}>{characterData.race}</span> <span className={styles[getClassColorClass(characterData.class)]}>{characterData.spec}</span> <span className={styles[getClassColorClass(characterData.class)]}>{characterData.class}</span>
+              <span className={styles[getFactionColorClass(characterData.race)]}>{characterData.race}</span> <span style={{ color: getClassColor(characterData.class) }}>{characterData.spec}</span> <span style={{ color: getClassColor(characterData.class) }}>{characterData.class}</span>
             </p>
             <p className={styles.levelAndItemLevel}>
               Level {characterData.level} • Item Level: {characterData.itemLevel}
@@ -143,9 +124,6 @@ const CharacterDisplay = memo(function CharacterDisplay({
       </div>
       <div className={styles.gearSection}>
         <GearDisplay equippedItems={characterData.equippedItems} characterName={characterData.name} apiConfig={apiConfig} />
-      </div>
-      <div className={styles.gearSection}>
-        <TalentDisplay realmSlug={realm} characterName={characterName} apiConfig={apiConfig} />
       </div>
     </div>
   );
