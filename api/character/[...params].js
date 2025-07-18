@@ -1,8 +1,29 @@
 // Vercel serverless function to fetch character data from Blizzard API
 export default async function handler(req, res) {
+  // Log request details for debugging
+  console.log('Character API called:', {
+    method: req.method,
+    url: req.url,
+    query: req.query,
+    params: req.query.params
+  });
+
   // Extract parameters from the dynamic route: /api/character/[realm]/[character]/[endpoint]
   const { params } = req.query;
-  const [realm, character, endpoint] = params || [];
+  
+  // Handle both array and string params (Vercel inconsistency)
+  let paramsArray;
+  if (Array.isArray(params)) {
+    paramsArray = params;
+  } else if (typeof params === 'string') {
+    paramsArray = params.split('/').filter(p => p.length > 0);
+  } else {
+    return res.status(400).json({ error: 'Invalid route parameters' });
+  }
+  
+  const [realm, character, endpoint] = paramsArray;
+
+  console.log('Parsed parameters:', { realm, character, endpoint, paramsArray });
 
   // Add CORS headers
   res.setHeader('Access-Control-Allow-Credentials', true);

@@ -5,14 +5,28 @@ export default async function handler(req, res) {
     method: req.method,
     url: req.url,
     query: req.query,
-    params: req.query.params
+    params: req.query.params,
+    fullPath: req.url
   });
 
   // Extract parameters from the dynamic route: /api/guild/[realm]/[guild]/[endpoint]
   const { params } = req.query;
-  const [realm, guild, endpoint] = params || [];
+  
+  // Handle both array and string params (Vercel inconsistency)
+  let paramsArray;
+  if (Array.isArray(params)) {
+    paramsArray = params;
+  } else if (typeof params === 'string') {
+    // If it's a string, split by forward slash
+    paramsArray = params.split('/').filter(p => p.length > 0);
+  } else {
+    console.log('No params found in query');
+    return res.status(400).json({ error: 'Invalid route parameters' });
+  }
+  
+  const [realm, guild, endpoint] = paramsArray;
 
-  console.log('Parsed parameters:', { realm, guild, endpoint });
+  console.log('Parsed parameters:', { realm, guild, endpoint, paramsArray });
 
   // Add CORS headers
   res.setHeader('Access-Control-Allow-Credentials', true);
@@ -56,7 +70,13 @@ export default async function handler(req, res) {
       for (const namespace of namespaces) {
         try {
           const apiUrl = `https://us.api.blizzard.com/data/wow/guild/${realm}/${encodeURIComponent(guild.toLowerCase())}/roster?namespace=${namespace}&locale=en_US`;
-          console.log('Trying guild roster API:', apiUrl);
+          console.log('🎯 Final Blizzard API URL:', apiUrl);
+          console.log('🔧 URL components:', {
+            realm,
+            guild: guild.toLowerCase(),
+            encoded: encodeURIComponent(guild.toLowerCase()),
+            namespace
+          });
           
           const response = await fetch(apiUrl, {
             headers: {
