@@ -1,15 +1,6 @@
 {
   "version": 2,
   "name": "wow-guild-viewer",
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist"
-      }
-    }
-  ],
   "functions": {
     "api/**/*.js": {
       "maxDuration": 10
@@ -32,12 +23,6 @@
           "value": "Content-Type, Authorization"
         }
       ]
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/api/guild/:realm/:guild/:endpoint",
-      "destination": "/api/guild/:realm/:guild/:endpoint"
     }
   ]
 }
