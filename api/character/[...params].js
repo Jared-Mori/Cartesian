@@ -1,6 +1,8 @@
 // Vercel serverless function to fetch character data from Blizzard API
 export default async function handler(req, res) {
-  const { realm, character, endpoint } = req.query;
+  // Extract parameters from the dynamic route: /api/character/[realm]/[character]/[endpoint]
+  const { params } = req.query;
+  const [realm, character, endpoint] = params || [];
 
   // Add CORS headers
   res.setHeader('Access-Control-Allow-Credentials', true);

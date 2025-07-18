@@ -1,8 +1,18 @@
 // Vercel serverless function to fetch guild data from Blizzard API
 export default async function handler(req, res) {
+  // Log request details for debugging
+  console.log('Guild API called:', {
+    method: req.method,
+    url: req.url,
+    query: req.query,
+    params: req.query.params
+  });
+
   // Extract parameters from the dynamic route: /api/guild/[realm]/[guild]/[endpoint]
   const { params } = req.query;
   const [realm, guild, endpoint] = params || [];
+
+  console.log('Parsed parameters:', { realm, guild, endpoint });
 
   // Add CORS headers
   res.setHeader('Access-Control-Allow-Credentials', true);
@@ -104,6 +114,12 @@ export default async function handler(req, res) {
 async function getAccessToken() {
   const clientId = process.env.BLIZZARD_CLIENT_ID;
   const clientSecret = process.env.BLIZZARD_CLIENT_SECRET;
+
+  console.log('Environment check:', {
+    hasClientId: !!clientId,
+    hasClientSecret: !!clientSecret,
+    clientIdLength: clientId ? clientId.length : 0
+  });
 
   if (!clientId || !clientSecret) {
     throw new Error('Missing Blizzard API credentials');

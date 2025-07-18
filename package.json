@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test:api": "node test-api.js",
+    "test:api:prod": "TEST_URL=https://your-app.vercel.app node test-api.js"
   },
   "dependencies": {
     "react": "^19.1.0",

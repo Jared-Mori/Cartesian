@@ -162,11 +162,16 @@ export async function fetchGuildRoster(realmSlug, guildName) {
       }
     } else {
       // Production: use serverless function
-      response = await fetch(`/api/guild/${realmSlug}/${guildName}/roster`);
+      const apiUrl = `/api/guild/${realmSlug}/${guildName}/roster`;
+      console.log('Production guild roster URL:', apiUrl);
+      console.log('Full URL:', window.location.origin + apiUrl);
+      
+      response = await fetch(apiUrl);
       
       if (!response.ok) {
         const errorText = await response.text();
         console.error('Serverless API response:', response.status, errorText);
+        console.error('Response headers:', [...response.headers.entries()]);
         throw new Error(`Failed to fetch guild roster: ${response.status}`);
       }
     }
@@ -256,6 +261,14 @@ export async function fetchCartesianGuildRoster() {
   for (const guildName of guildVariations) {
     try {
       console.log(`Trying guild name: "${guildName}"`);
+      console.log(`Development mode: ${isDevelopment}`);
+      
+      if (!isDevelopment) {
+        const apiUrl = `/api/guild/benediction/${guildName}/roster`;
+        console.log('Production API URL:', apiUrl);
+        console.log('Full URL will be:', window.location.origin + apiUrl);
+      }
+      
       return await fetchGuildRoster('benediction', guildName);
     } catch (error) {
       console.log(`Failed with guild name "${guildName}":`, error.message);
