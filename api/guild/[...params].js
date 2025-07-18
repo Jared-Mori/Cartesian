@@ -1,6 +1,8 @@
 // Vercel serverless function to fetch guild data from Blizzard API
 export default async function handler(req, res) {
-  const { realm, guild, endpoint } = req.query;
+  // Extract parameters from the dynamic route: /api/guild/[realm]/[guild]/[endpoint]
+  const { params } = req.query;
+  const [realm, guild, endpoint] = params || [];
 
   // Add CORS headers
   res.setHeader('Access-Control-Allow-Credentials', true);
@@ -36,27 +38,59 @@ export default async function handler(req, res) {
     // Get access token
     const token = await getAccessToken();
     
-    // Build API URL
-    const apiUrl = `https://us.api.blizzard.com/data/wow/guild/${realm}/${encodeURIComponent(guild)}${targetEndpoint ? `/${targetEndpoint}` : ''}?namespace=profile-classic-us&locale=en_US`;
-    
-    // Fetch guild data from Blizzard API
-    const response = await fetch(apiUrl, {
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
+    // For roster endpoint, try different namespaces like in development
+    if (targetEndpoint === 'roster') {
+      const namespaces = ['profile-classic1x-us', 'profile-classic-us'];
+      let lastError;
+      
+      for (const namespace of namespaces) {
+        try {
+          const apiUrl = `https://us.api.blizzard.com/data/wow/guild/${realm}/${encodeURIComponent(guild.toLowerCase())}/roster?namespace=${namespace}&locale=en_US`;
+          console.log('Trying guild roster API:', apiUrl);
+          
+          const response = await fetch(apiUrl, {
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            }
+          });
+          
+          if (response.ok) {
+            console.log('Success with namespace:', namespace);
+            const guildData = await response.json();
+            res.setHeader('Cache-Control', 's-maxage=600, stale-while-revalidate');
+            return res.status(200).json(guildData);
+          } else {
+            const errorText = await response.text();
+            console.log(`Failed with namespace ${namespace}:`, response.status, errorText);
+            lastError = new Error(`Failed with ${namespace}: ${response.status}`);
+          }
+        } catch (err) {
+          console.log(`Error with namespace ${namespace}:`, err);
+          lastError = err;
+        }
       }
-    });
+      
+      throw lastError || new Error('All namespace attempts failed');
+    } else {
+      // For other endpoints, use the standard approach
+      const apiUrl = `https://us.api.blizzard.com/data/wow/guild/${realm}/${encodeURIComponent(guild)}/${targetEndpoint}?namespace=profile-classic-us&locale=en_US`;
+      
+      const response = await fetch(apiUrl, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
 
-    if (!response.ok) {
-      throw new Error(`Blizzard API error: ${response.status}`);
+      if (!response.ok) {
+        throw new Error(`Blizzard API error: ${response.status}`);
+      }
+
+      const guildData = await response.json();
+      res.setHeader('Cache-Control', 's-maxage=600, stale-while-revalidate');
+      res.status(200).json(guildData);
     }
-
-    const guildData = await response.json();
-    
-    // Cache for 10 minutes (guild data changes more frequently)
-    res.setHeader('Cache-Control', 's-maxage=600, stale-while-revalidate');
-    
-    res.status(200).json(guildData);
   } catch (error) {
     console.error('Error fetching guild data:', error);
     res.status(500).json({ 

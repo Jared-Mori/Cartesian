@@ -128,19 +128,47 @@ export async function fetchGuildRoster(realmSlug, guildName) {
     if (isDevelopment) {
       // Development: call Blizzard API directly
       const token = await getAccessTokenDev();
-      response = await fetch(`https://us.api.blizzard.com/data/wow/guild/${realmSlug}/${encodeURIComponent(guildName)}/roster?namespace=profile-classic-us&locale=en_US`, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
+      // Try different namespaces for Classic WoW
+      const namespaces = ['profile-classic1x-us', 'profile-classic-us'];
+      let lastError;
+      
+      for (const namespace of namespaces) {
+        try {
+          const apiUrl = `https://us.api.blizzard.com/data/wow/guild/${realmSlug}/${encodeURIComponent(guildName.toLowerCase())}/roster?namespace=${namespace}&locale=en_US`;
+          console.log('Trying guild roster API:', apiUrl);
+          response = await fetch(apiUrl, {
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            }
+          });
+          
+          if (response.ok) {
+            console.log('Success with namespace:', namespace);
+            break;
+          } else {
+            const errorText = await response.text();
+            console.log(`Failed with namespace ${namespace}:`, response.status, errorText);
+            lastError = new Error(`Failed with ${namespace}: ${response.status}`);
+          }
+        } catch (err) {
+          console.log(`Error with namespace ${namespace}:`, err);
+          lastError = err;
         }
-      });
+      }
+      
+      if (!response || !response.ok) {
+        throw lastError || new Error('All namespace attempts failed');
+      }
     } else {
       // Production: use serverless function
       response = await fetch(`/api/guild/${realmSlug}/${guildName}/roster`);
-    }
-    
-    if (!response.ok) {
-      throw new Error(`Failed to fetch guild roster: ${response.status}`);
+      
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Serverless API response:', response.status, errorText);
+        throw new Error(`Failed to fetch guild roster: ${response.status}`);
+      }
     }
     
     return await response.json();
@@ -222,7 +250,19 @@ export async function fetchGuildAchievements(realmSlug, guildName) {
  * Convenience functions for Cartesian guild
  */
 export async function fetchCartesianGuildRoster() {
-  return fetchGuildRoster('benediction', 'cartesian');
+  // Try different variations of the guild name
+  const guildVariations = ['Cartesian', 'cartesian'];
+  
+  for (const guildName of guildVariations) {
+    try {
+      console.log(`Trying guild name: "${guildName}"`);
+      return await fetchGuildRoster('benediction', guildName);
+    } catch (error) {
+      console.log(`Failed with guild name "${guildName}":`, error.message);
+    }
+  }
+  
+  throw new Error('Failed to fetch Cartesian guild roster with any name variation');
 }
 
 export async function fetchCartesianGuildActivity() {
@@ -351,7 +391,7 @@ export async function fetchCharacterSpecialization(realmSlug, characterName) {
     if (isDevelopment) {
       // Development: call Blizzard API directly
       const token = await getAccessTokenDev();
-      response = await fetch(`https://us.api.blizzard.com/data/wow/character/${realmSlug}/${characterName}/specializations?namespace=profile-classic-us&locale=en_US`, {
+      response = await fetch(`https://us.api.blizzard.com/profile/wow/character/${realmSlug}/${characterName}/specializations?namespace=profile-classic-us&locale=en_US`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
