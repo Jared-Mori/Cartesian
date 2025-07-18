@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { fetchItemMedia } from '../../utils/blizzardApi';
+import { fetchItemMedia } from '../../utils/apiClient';
 import ItemTooltip from './ItemTooltip';
 import styles from './GearDisplay.module.css';
 
@@ -64,7 +64,7 @@ export default function GearDisplay({ equippedItems, characterName, apiConfig })
         if (!itemId || !mediaUrl || itemIcons[itemId]) continue;
 
         try {
-          const media = await fetchItemMedia(mediaUrl, apiConfig);
+          const media = await fetchItemMedia(mediaUrl);
           const iconAsset = media.assets.find(asset => asset.key === 'icon');
           
           if (iconAsset) {

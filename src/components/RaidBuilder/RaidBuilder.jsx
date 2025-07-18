@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './RaidBuilder.module.css';
 import { getClassColor, getSpecRole } from '../../utils/wowData';
-import { fetchCharacterProfile } from '../../utils/blizzardApi';
+import { fetchCharacterProfile } from '../../utils/apiClient';
 
 function RaidBuilder({ rosterData = [] }) {
   const [raidSize, setRaidSize] = useState(25);

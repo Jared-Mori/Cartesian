@@ -1,8 +1,8 @@
 import { useEffect, useState, useMemo, useCallback } from 'react';
-import { fetchCartesianGuildRoster } from './utils/blizzardApi';
+import { fetchCartesianGuildRoster } from './utils/apiClient';
 import GuildDashboard from './components/GuildDashboard/GuildDashboard';
 import CharacterDisplay from './components/CharacterDisplay/CharacterDisplay';
-import { getGuildApiConfig } from './utils/blizzardApi';
+import { getGuildApiConfig } from './utils/apiClient';
 import './App.css';
 
 function App() {
@@ -25,7 +25,15 @@ function App() {
     setRosterData([]);
     
     try {
-      const roster = await fetchCartesianGuildRoster();
+      const rosterResponse = await fetchCartesianGuildRoster();
+      console.log('Guild roster response:', rosterResponse); // Debug log
+      
+      // Handle different response formats
+      const roster = rosterResponse.members || rosterResponse || [];
+      
+      if (!Array.isArray(roster)) {
+        throw new Error('Invalid roster data format');
+      }
       
       // Create a unique list of characters
       const uniqueCharacters = [];

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { fetchCharacterSpecialization } from '../../utils/blizzardApi';
+import { fetchCharacterSpecialization } from '../../utils/apiClient';
 import styles from './TalentDisplay.module.css';
 
 const TalentDisplay = ({ realmSlug, characterName, apiConfig }) => {
@@ -14,7 +14,7 @@ const TalentDisplay = ({ realmSlug, characterName, apiConfig }) => {
       try {
         setLoading(true);
         setError(null);
-        const data = await fetchCharacterSpecialization(realmSlug, characterName, apiConfig);
+        const data = await fetchCharacterSpecialization(realmSlug, characterName);
         setSpecializationData(data);
       } catch (err) {
         console.error('Failed to load specialization data:', err);

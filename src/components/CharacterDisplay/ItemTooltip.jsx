@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from './ItemTooltip.module.css';
-import * as BlizzardAPI from '../../utils/blizzardApi';
+import * as ApiClient from '../../utils/apiClient';
 
 const QUALITY_COLORS = {
   'POOR': '#9d9d9d',
@@ -80,7 +80,7 @@ export default function ItemTooltip({ itemId, position, onClose }) {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const data = await BlizzardAPI.fetchItemData(itemId);
+        const data = await ApiClient.fetchItemData(itemId);
         setItemData(data);
       } catch (error) {
         console.error(`Failed to fetch item data for ${itemId}:`, error);

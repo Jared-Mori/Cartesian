@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { fetchCartesianGuildRoster, fetchCartesianGuildActivity, getGuildApiConfig, fetchCharacterProfile } from '../../utils/blizzardApi';
+import { fetchCartesianGuildRoster, fetchCartesianGuildActivity, getGuildApiConfig, fetchCharacterProfile } from '../../utils/apiClient';
 import { GUILD_CONFIG } from '../../utils/config';
 import { CLASS_COLORS } from '../../utils/wowData';
 import CharacterDisplay from '../CharacterDisplay/CharacterDisplay';
@@ -16,15 +16,19 @@ function GuildDashboard({ rosterData = [], loading: externalLoading = false, err
   const [activeTab, setActiveTab] = useState('overview');
 
   useEffect(() => {
-    if (rosterData.length > 0) {
-      calculateGuildStats(rosterData);
-    } else {
-      loadGuildStats();
-    }
-  }, [rosterData]);
+    // Always load guild stats directly since we need full roster data
+    // The rosterData from App.jsx is simplified and doesn't have character details
+    loadGuildStats();
+  }, []);
 
   const calculateGuildStats = (roster) => {
     setLoading(true);
+    
+    if (!roster || !Array.isArray(roster)) {
+      console.warn('Invalid roster data provided to calculateGuildStats:', roster);
+      setLoading(false);
+      return;
+    }
     
     try {
       // Calculate stats from provided roster data
@@ -80,10 +84,19 @@ function GuildDashboard({ rosterData = [], loading: externalLoading = false, err
     setError(null);
     
     try {
-      const [roster, activity] = await Promise.all([
+      const [rosterResponse, activity] = await Promise.all([
         fetchCartesianGuildRoster(),
         fetchCartesianGuildActivity().catch(() => null) // Activity might not be available
       ]);
+
+      console.log('GuildDashboard roster response:', rosterResponse); // Debug log
+      
+      // Handle different response formats
+      const roster = rosterResponse.members || rosterResponse || [];
+      
+      if (!Array.isArray(roster)) {
+        throw new Error('Invalid roster data format in GuildDashboard');
+      }
 
       // Calculate some basic stats
       const stats = {
@@ -99,8 +112,7 @@ function GuildDashboard({ rosterData = [], loading: externalLoading = false, err
           try {
             const profile = await fetchCharacterProfile(
               member.character.realm.slug, 
-              member.character.name.toLowerCase(),
-              getGuildApiConfig()
+              member.character.name.toLowerCase()
             );
             return {
               ...member,

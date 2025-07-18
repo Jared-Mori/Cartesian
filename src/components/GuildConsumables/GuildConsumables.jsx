@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { fetchItemData, fetchItemMedia, getGuildApiConfig } from '../../utils/blizzardApi';
+import { fetchItemData, fetchItemMedia, getGuildApiConfig } from '../../utils/apiClient';
 import ItemTooltip from '../CharacterDisplay/ItemTooltip';
 import { QUALITY_COLORS } from '../CharacterDisplay/GearDisplay';
 import { CONSUMABLES_DATA, CLASS_SPECS } from '../../data/consumablesData';
@@ -43,7 +43,7 @@ export default function GuildConsumables() {
           const mediaUrl = itemData?.media?.key?.href;
           if (mediaUrl && !itemIcons[itemId]) {
             try {
-              const media = await fetchItemMedia(mediaUrl, apiConfig);
+              const media = await fetchItemMedia(mediaUrl);
               const iconAsset = media.assets.find(asset => asset.key === 'icon');
               
               if (iconAsset) {

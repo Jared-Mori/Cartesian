@@ -1,5 +1,5 @@
 import React, { useEffect, useState, memo } from 'react';
-import { fetchCharacterProfile, fetchCharacterEquipment, fetchCharacterMedia } from '../../utils/blizzardApi';
+import { fetchCharacterProfile, fetchCharacterEquipment, fetchCharacterMedia } from '../../utils/apiClient';
 import { getClassColor } from '../../utils/wowData';
 import GearDisplay from './GearDisplay';
 import styles from './CharacterDisplay.module.css';
@@ -45,8 +45,8 @@ const CharacterDisplay = memo(function CharacterDisplay({
     async function loadCharacterData() {
       try {
         setLoading(true);
-        const profile = await fetchCharacterProfile(realm, characterName.toLowerCase(), apiConfig);
-        const equipment = await fetchCharacterEquipment(realm, characterName.toLowerCase(), apiConfig);
+        const profile = await fetchCharacterProfile(realm, characterName.toLowerCase());
+        const equipment = await fetchCharacterEquipment(realm, characterName.toLowerCase());
         const charIcon = await fetchCharacterMedia(profile.media.href);
 
         setCharacterData({

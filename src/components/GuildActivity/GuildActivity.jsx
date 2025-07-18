@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { fetchGuildActivity } from '../../utils/blizzardApi';
+import { fetchGuildActivity } from '../../utils/apiClient';
 import ActivityEvent from './ActivityEvent';
 import styles from './GuildActivity.module.css';
 
@@ -10,7 +10,7 @@ export default function GuildActivity({ guildName, realm, apiConfig }) {
   useEffect(() => {
     async function loadActivity() {
       try {
-        const data = await fetchGuildActivity(realm, guildName, apiConfig);
+        const data = await fetchGuildActivity(realm, guildName);
         if (data?.activities) {
           const sorted = [...data.activities].sort((a, b) => b.timestamp - a.timestamp);
           setActivities(sorted);
