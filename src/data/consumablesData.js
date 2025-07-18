@@ -1,298 +1,240 @@
-// WoW Classic Consumables Data
-// Organized by class/spec with actual item IDs from WoW Classic
-
-// WoW Classic Consumables Data
-// Organized by class/spec with actual item IDs from WoW Classic
-
-export const CONSUMABLES_DATA = {
-  // Warrior
-  'warrior-fury': {
-    flasks: [13511, 13512], // Flask of the Titans, Flask of Distilled Wisdom
-    elixirs: [9187, 3825, 9206], // Elixir of Mongoose, Shadow Power, Elixir of Adept
-    food: [13928, 21023, 13930], // Grilled Squid, Dirge's Kickin' Chimaerok Chops, Blessed Sunfruit
-    potions: [5634, 1710, 3928] // Free Action Potion, Greater Healing Potion, Superior Healing Potion
+export const CONSUMABLE_SETS = {
+  flasks: {
+    strength: [76088],
+    agility: [76084],
+    intellect: [76085],
+    stamina: [76087],
+    armor: [76085],
+    crit: [76086],
   },
-
-  'warrior-protection': {
-    flasks: [13510, 13511], // Flask of Stamina, Flask of the Titans
-    elixirs: [3825, 9206, 17708], // Shadow Power, Elixir of Defense, Elixir of Frost Power
-    food: [21023, 13931, 13813], // Dirge's Kickin' Chimaerok Chops, Nightfin Soup, Blessed Sunfruit Juice
-    potions: [5634, 1710, 3928] // Free Action Potion, Greater Healing Potion, Superior Healing Potion
+  
+  potions: {
+    strength: [76095],
+    agility: [76089],
+    intellect: [76093],
+    mana: [76092],
+    haste: [86125],
+    armor: [76090],
   },
-
-  'warrior-arms': {
-    flasks: [13511, 13512], // Flask of the Titans, Flask of Distilled Wisdom
-    elixirs: [9187, 3825, 9206], // Elixir of Mongoose, Shadow Power, Elixir of Defense
-    food: [13928, 21023, 13930], // Grilled Squid, Dirge's Kickin' Chimaerok Chops, Blessed Sunfruit
-    potions: [5634, 1710, 3928] // Free Action Potion, Greater Healing Potion, Superior Healing Potion
-  },
-
-  // Paladin
-  'paladin-holy': {
-    flasks: [13512, 13513], // Flask of Distilled Wisdom, Flask of Chromatic Resistance
-    elixirs: [9179, 17708, 3825], // Elixir of Greater Intellect, Elixir of Frost Power, Shadow Power
-    food: [13813, 21023, 13931], // Blessed Sunfruit Juice, Dirge's Kickin' Chimaerok Chops, Nightfin Soup
-    potions: [13444, 5634, 1710] // Major Mana Potion, Free Action Potion, Greater Healing Potion
-  },
-
-  'paladin-protection': {
-    flasks: [13510, 13511], // Flask of Stamina, Flask of the Titans
-    elixirs: [3825, 9206, 9179], // Shadow Power, Elixir of Defense, Elixir of Greater Intellect
-    food: [21023, 13931, 13813], // Dirge's Kickin' Chimaerok Chops, Nightfin Soup, Blessed Sunfruit Juice
-    potions: [13444, 5634, 1710] // Major Mana Potion, Free Action Potion, Greater Healing Potion
-  },
-
-  'paladin-retribution': {
-    flasks: [13511, 13512], // Flask of the Titans, Flask of Distilled Wisdom
-    elixirs: [9187, 3825, 9179], // Elixir of Mongoose, Shadow Power, Elixir of Greater Intellect
-    food: [13928, 21023, 13930], // Grilled Squid, Dirge's Kickin' Chimaerok Chops, Blessed Sunfruit
-    potions: [13444, 5634, 1710] // Major Mana Potion, Free Action Potion, Greater Healing Potion
-  },
-
-  // Hunter
-  'hunter-beast': {
-    flasks: [13511, 13512], // Flask of the Titans, Flask of Distilled Wisdom
-    elixirs: [9187, 9197, 3825], // Elixir of Mongoose, Elixir of Poison Resistance, Shadow Power
-    food: [13928, 21023, 13930], // Grilled Squid, Dirge's Kickin' Chimaerok Chops, Blessed Sunfruit
-    potions: [5634, 1710, 3827] // Free Action Potion, Greater Healing Potion, Mana Potion
-  },
-
-  'hunter-marksmanship': {
-    flasks: [13511, 13512], // Flask of the Titans, Flask of Distilled Wisdom
-    elixirs: [9197, 9187, 3825], // Elixir of Poison Resistance, Elixir of Mongoose, Shadow Power
-    food: [13928, 21023, 13930], // Grilled Squid, Dirge's Kickin' Chimaerok Chops, Blessed Sunfruit
-    potions: [5634, 1710, 3827] // Free Action Potion, Greater Healing Potion, Mana Potion
-  },
-
-  'hunter-survival': {
-    flasks: [13511, 13512], // Flask of the Titans, Flask of Distilled Wisdom
-    elixirs: [9197, 9187, 3825], // Elixir of Poison Resistance, Elixir of Mongoose, Shadow Power
-    food: [13928, 21023, 13930], // Grilled Squid, Dirge's Kickin' Chimaerok Chops, Blessed Sunfruit
-    potions: [5634, 1710, 3827] // Free Action Potion, Greater Healing Potion, Mana Potion
-  },
-
-  // Rogue
-  'rogue-assassination': {
-    flasks: [13511, 13512], // Flask of the Titans, Flask of Distilled Wisdom
-    elixirs: [9187, 3825, 9197], // Elixir of Mongoose, Shadow Power, Elixir of Poison Resistance
-    food: [13928, 21023, 13930], // Grilled Squid, Dirge's Kickin' Chimaerok Chops, Blessed Sunfruit
-    potions: [5634, 1710, 3385] // Free Action Potion, Greater Healing Potion, Lesser Invisibility Potion
-  },
-
-  'rogue-combat': {
-    flasks: [13511, 13512], // Flask of the Titans, Flask of Distilled Wisdom
-    elixirs: [9187, 3825, 9206], // Elixir of Mongoose, Shadow Power, Elixir of Defense
-    food: [13928, 21023, 13930], // Grilled Squid, Dirge's Kickin' Chimaerok Chops, Blessed Sunfruit
-    potions: [5634, 1710, 3385] // Free Action Potion, Greater Healing Potion, Lesser Invisibility Potion
-  },
-
-  'rogue-subtlety': {
-    flasks: [13511, 13512], // Flask of the Titans, Flask of Distilled Wisdom
-    elixirs: [9187, 3825, 9197], // Elixir of Mongoose, Shadow Power, Elixir of Poison Resistance
-    food: [13928, 21023, 13930], // Grilled Squid, Dirge's Kickin' Chimaerok Chops, Blessed Sunfruit
-    potions: [5634, 1710, 3385] // Free Action Potion, Greater Healing Potion, Lesser Invisibility Potion
-  },
-
-  // Priest
-  'priest-holy': {
-    flasks: [13512, 13513], // Flask of Distilled Wisdom, Flask of Chromatic Resistance
-    elixirs: [9179, 17708, 3825], // Elixir of Greater Intellect, Elixir of Frost Power, Shadow Power
-    food: [13813, 21023, 13931], // Blessed Sunfruit Juice, Dirge's Kickin' Chimaerok Chops, Nightfin Soup
-    potions: [13444, 6149, 1710] // Major Mana Potion, Greater Mana Potion, Greater Healing Potion
-  },
-
-  'priest-discipline': {
-    flasks: [13512, 13513], // Flask of Distilled Wisdom, Flask of Chromatic Resistance
-    elixirs: [9179, 17708, 3825], // Elixir of Greater Intellect, Elixir of Frost Power, Shadow Power
-    food: [13813, 21023, 13931], // Blessed Sunfruit Juice, Dirge's Kickin' Chimaerok Chops, Nightfin Soup
-    potions: [13444, 6149, 1710] // Major Mana Potion, Greater Mana Potion, Greater Healing Potion
-  },
-
-  'priest-shadow': {
-    flasks: [13512, 13513], // Flask of Distilled Wisdom, Flask of Chromatic Resistance
-    elixirs: [9179, 3825, 17708], // Elixir of Greater Intellect, Shadow Power, Elixir of Frost Power
-    food: [13813, 21023, 13931], // Blessed Sunfruit Juice, Dirge's Kickin' Chimaerok Chops, Nightfin Soup
-    potions: [13444, 6149, 1710] // Major Mana Potion, Greater Mana Potion, Greater Healing Potion
-  },
-
-  // Shaman
-  'shaman-elemental': {
-    flasks: [13512, 13513], // Flask of Distilled Wisdom, Flask of Chromatic Resistance
-    elixirs: [9179, 3825, 17708], // Elixir of Greater Intellect, Shadow Power, Elixir of Frost Power
-    food: [13813, 21023, 13931], // Blessed Sunfruit Juice, Dirge's Kickin' Chimaerok Chops, Nightfin Soup
-    potions: [13444, 6149, 1710] // Major Mana Potion, Greater Mana Potion, Greater Healing Potion
-  },
-
-  'shaman-enhancement': {
-    flasks: [13511, 13512], // Flask of the Titans, Flask of Distilled Wisdom
-    elixirs: [9187, 3825, 9179], // Elixir of Mongoose, Shadow Power, Elixir of Greater Intellect
-    food: [13928, 21023, 13930], // Grilled Squid, Dirge's Kickin' Chimaerok Chops, Blessed Sunfruit
-    potions: [13444, 5634, 1710] // Major Mana Potion, Free Action Potion, Greater Healing Potion
-  },
-
-  'shaman-restoration': {
-    flasks: [13512, 13513], // Flask of Distilled Wisdom, Flask of Chromatic Resistance
-    elixirs: [9179, 17708, 3825], // Elixir of Greater Intellect, Elixir of Frost Power, Shadow Power
-    food: [13813, 21023, 13931], // Blessed Sunfruit Juice, Dirge's Kickin' Chimaerok Chops, Nightfin Soup
-    potions: [13444, 6149, 1710] // Major Mana Potion, Greater Mana Potion, Greater Healing Potion
-  },
-
-  // Mage
-  'mage-arcane': {
-    flasks: [13512, 13513], // Flask of Distilled Wisdom, Flask of Chromatic Resistance
-    elixirs: [9179, 3825, 17708], // Elixir of Greater Intellect, Shadow Power, Elixir of Frost Power
-    food: [13813, 21023, 13931], // Blessed Sunfruit Juice, Dirge's Kickin' Chimaerok Chops, Nightfin Soup
-    potions: [13444, 6149, 1710] // Major Mana Potion, Greater Mana Potion, Greater Healing Potion
-  },
-
-  'mage-fire': {
-    flasks: [13512, 13513], // Flask of Distilled Wisdom, Flask of Chromatic Resistance
-    elixirs: [9179, 3825, 17708], // Elixir of Greater Intellect, Shadow Power, Elixir of Frost Power
-    food: [13813, 21023, 13931], // Blessed Sunfruit Juice, Dirge's Kickin' Chimaerok Chops, Nightfin Soup
-    potions: [13444, 6149, 1710] // Major Mana Potion, Greater Mana Potion, Greater Healing Potion
-  },
-
-  'mage-frost': {
-    flasks: [13512, 13513], // Flask of Distilled Wisdom, Flask of Chromatic Resistance
-    elixirs: [9179, 17708, 3825], // Elixir of Greater Intellect, Elixir of Frost Power, Shadow Power
-    food: [13813, 21023, 13931], // Blessed Sunfruit Juice, Dirge's Kickin' Chimaerok Chops, Nightfin Soup
-    potions: [13444, 6149, 1710] // Major Mana Potion, Greater Mana Potion, Greater Healing Potion
-  },
-
-  // Warlock
-  'warlock-affliction': {
-    flasks: [13512, 13513], // Flask of Distilled Wisdom, Flask of Chromatic Resistance
-    elixirs: [9179, 3825, 17708], // Elixir of Greater Intellect, Shadow Power, Elixir of Frost Power
-    food: [13813, 21023, 13931], // Blessed Sunfruit Juice, Dirge's Kickin' Chimaerok Chops, Nightfin Soup
-    potions: [13444, 6149, 1710] // Major Mana Potion, Greater Mana Potion, Greater Healing Potion
-  },
-
-  'warlock-demonology': {
-    flasks: [13512, 13513], // Flask of Distilled Wisdom, Flask of Chromatic Resistance
-    elixirs: [9179, 3825, 17708], // Elixir of Greater Intellect, Shadow Power, Elixir of Frost Power
-    food: [13813, 21023, 13931], // Blessed Sunfruit Juice, Dirge's Kickin' Chimaerok Chops, Nightfin Soup
-    potions: [13444, 6149, 1710] // Major Mana Potion, Greater Mana Potion, Greater Healing Potion
-  },
-
-  'warlock-destruction': {
-    flasks: [13512, 13513], // Flask of Distilled Wisdom, Flask of Chromatic Resistance
-    elixirs: [9179, 3825, 17708], // Elixir of Greater Intellect, Shadow Power, Elixir of Frost Power
-    food: [13813, 21023, 13931], // Blessed Sunfruit Juice, Dirge's Kickin' Chimaerok Chops, Nightfin Soup
-    potions: [13444, 6149, 1710] // Major Mana Potion, Greater Mana Potion, Greater Healing Potion
-  },
-
-  // Druid
-  'druid-balance': {
-    flasks: [13512, 13513], // Flask of Distilled Wisdom, Flask of Chromatic Resistance
-    elixirs: [9179, 3825, 17708], // Elixir of Greater Intellect, Shadow Power, Elixir of Frost Power
-    food: [13813, 21023, 13931], // Blessed Sunfruit Juice, Dirge's Kickin' Chimaerok Chops, Nightfin Soup
-    potions: [13444, 6149, 1710] // Major Mana Potion, Greater Mana Potion, Greater Healing Potion
-  },
-
-  'druid-feral': {
-    flasks: [13511, 13512], // Flask of the Titans, Flask of Distilled Wisdom
-    elixirs: [9187, 3825, 9206], // Elixir of Mongoose, Shadow Power, Elixir of Defense
-    food: [13928, 21023, 13930], // Grilled Squid, Dirge's Kickin' Chimaerok Chops, Blessed Sunfruit
-    potions: [5634, 1710, 13444] // Free Action Potion, Greater Healing Potion, Major Mana Potion
-  },
-
-  'druid-guardian': {
-    flasks: [13510, 13511], // Flask of Stamina, Flask of the Titans
-    elixirs: [3825, 9206, 9179], // Shadow Power, Elixir of Defense, Elixir of Greater Intellect
-    food: [21023, 13931, 13813], // Dirge's Kickin' Chimaerok Chops, Nightfin Soup, Blessed Sunfruit Juice
-    potions: [5634, 1710, 13444] // Free Action Potion, Greater Healing Potion, Major Mana Potion
-  },
-
-  'druid-restoration': {
-    flasks: [13512, 13513], // Flask of Distilled Wisdom, Flask of Chromatic Resistance
-    elixirs: [9179, 17708, 3825], // Elixir of Greater Intellect, Elixir of Frost Power, Shadow Power
-    food: [13813, 21023, 13931], // Blessed Sunfruit Juice, Dirge's Kickin' Chimaerok Chops, Nightfin Soup
-    potions: [13444, 6149, 1710] // Major Mana Potion, Greater Mana Potion, Greater Healing Potion
-  },
-
-  // Death Knight
-  'deathknight-blood': {
-    flasks: [13510, 13511], // Flask of Stamina, Flask of the Titans
-    elixirs: [3825, 9206, 9187], // Shadow Power, Elixir of Defense, Elixir of Mongoose
-    food: [21023, 13931, 13813], // Dirge's Kickin' Chimaerok Chops, Nightfin Soup, Blessed Sunfruit Juice
-    potions: [5634, 1710, 3928] // Free Action Potion, Greater Healing Potion, Superior Healing Potion
-  },
-
-  'deathknight-frost': {
-    flasks: [13511, 13512], // Flask of the Titans, Flask of Distilled Wisdom
-    elixirs: [9187, 3825, 17708], // Elixir of Mongoose, Shadow Power, Elixir of Frost Power
-    food: [13928, 21023, 13930], // Grilled Squid, Dirge's Kickin' Chimaerok Chops, Blessed Sunfruit
-    potions: [5634, 1710, 3928] // Free Action Potion, Greater Healing Potion, Superior Healing Potion
-  },
-
-  'deathknight-unholy': {
-    flasks: [13511, 13512], // Flask of the Titans, Flask of Distilled Wisdom
-    elixirs: [9187, 3825, 9206], // Elixir of Mongoose, Shadow Power, Elixir of Defense
-    food: [13928, 21023, 13930], // Grilled Squid, Dirge's Kickin' Chimaerok Chops, Blessed Sunfruit
-    potions: [5634, 1710, 3928] // Free Action Potion, Greater Healing Potion, Superior Healing Potion
-  },
-
-  // Demon Hunter
-  'demonhunter-havoc': {
-    flasks: [13511, 13512], // Flask of the Titans, Flask of Distilled Wisdom
-    elixirs: [9187, 3825, 9197], // Elixir of Mongoose, Shadow Power, Elixir of Poison Resistance
-    food: [13928, 21023, 13930], // Grilled Squid, Dirge's Kickin' Chimaerok Chops, Blessed Sunfruit
-    potions: [5634, 1710, 3385] // Free Action Potion, Greater Healing Potion, Lesser Invisibility Potion
-  },
-
-  'demonhunter-vengeance': {
-    flasks: [13510, 13511], // Flask of Stamina, Flask of the Titans
-    elixirs: [3825, 9206, 9187], // Shadow Power, Elixir of Defense, Elixir of Mongoose
-    food: [21023, 13931, 13813], // Dirge's Kickin' Chimaerok Chops, Nightfin Soup, Blessed Sunfruit Juice
-    potions: [5634, 1710, 3928] // Free Action Potion, Greater Healing Potion, Superior Healing Potion
-  },
-
-  // Monk
-  'monk-brewmaster': {
-    flasks: [13510, 13511], // Flask of Stamina, Flask of the Titans
-    elixirs: [3825, 9206, 9179], // Shadow Power, Elixir of Defense, Elixir of Greater Intellect
-    food: [21023, 13931, 13813], // Dirge's Kickin' Chimaerok Chops, Nightfin Soup, Blessed Sunfruit Juice
-    potions: [5634, 1710, 13444] // Free Action Potion, Greater Healing Potion, Major Mana Potion
-  },
-
-  'monk-mistweaver': {
-    flasks: [13512, 13513], // Flask of Distilled Wisdom, Flask of Chromatic Resistance
-    elixirs: [9179, 17708, 3825], // Elixir of Greater Intellect, Elixir of Frost Power, Shadow Power
-    food: [13813, 21023, 13931], // Blessed Sunfruit Juice, Dirge's Kickin' Chimaerok Chops, Nightfin Soup
-    potions: [13444, 6149, 1710] // Major Mana Potion, Greater Mana Potion, Greater Healing Potion
-  },
-
-  'monk-windwalker': {
-    flasks: [13511, 13512], // Flask of the Titans, Flask of Distilled Wisdom
-    elixirs: [9187, 3825, 9179], // Elixir of Mongoose, Shadow Power, Elixir of Greater Intellect
-    food: [13928, 21023, 13930], // Grilled Squid, Dirge's Kickin' Chimaerok Chops, Blessed Sunfruit
-    potions: [5634, 1710, 13444] // Free Action Potion, Greater Healing Potion, Major Mana Potion
-  },
-
-  // Evoker
-  'evoker-devastation': {
-    flasks: [13512, 13513], // Flask of Distilled Wisdom, Flask of Chromatic Resistance
-    elixirs: [9179, 3825, 17708], // Elixir of Greater Intellect, Shadow Power, Elixir of Frost Power
-    food: [13813, 21023, 13931], // Blessed Sunfruit Juice, Dirge's Kickin' Chimaerok Chops, Nightfin Soup
-    potions: [13444, 6149, 1710] // Major Mana Potion, Greater Mana Potion, Greater Healing Potion
-  },
-
-  'evoker-preservation': {
-    flasks: [13512, 13513], // Flask of Distilled Wisdom, Flask of Chromatic Resistance
-    elixirs: [9179, 17708, 3825], // Elixir of Greater Intellect, Elixir of Frost Power, Shadow Power
-    food: [13813, 21023, 13931], // Blessed Sunfruit Juice, Dirge's Kickin' Chimaerok Chops, Nightfin Soup
-    potions: [13444, 6149, 1710] // Major Mana Potion, Greater Mana Potion, Greater Healing Potion
-  },
-
-  'evoker-augmentation': {
-    flasks: [13512, 13513], // Flask of Distilled Wisdom, Flask of Chromatic Resistance
-    elixirs: [9179, 3825, 17708], // Elixir of Greater Intellect, Shadow Power, Elixir of Frost Power
-    food: [13813, 21023, 13931], // Blessed Sunfruit Juice, Dirge's Kickin' Chimaerok Chops, Nightfin Soup
-    potions: [13444, 6149, 1710] // Major Mana Potion, Greater Mana Potion, Greater Healing Potion
+  
+  food: {
+    strength: [74646],
+    agility: [74648],
+    intellect: [74650],
+    stamina: [74656],
+    hit: [86073],
+    mastery: [101745],
+    expertise: [86074],
+    generic: [101618],
   }
 };
 
-// Class/Spec mapping for dropdown
+export const CONSUMABLES_DATA = {
+  'warrior-fury': {
+    flasks: [CONSUMABLE_SETS.flasks.strength],
+    food: [CONSUMABLE_SETS.food.strength, CONSUMABLE_SETS.food.generic],
+    potions: [CONSUMABLE_SETS.potions.strength]
+  },
+
+  'warrior-protection': {
+    flasks: [CONSUMABLE_SETS.flasks.strength, CONSUMABLE_SETS.flasks.stamina],
+    food: [CONSUMABLE_SETS.food.hit, CONSUMABLE_SETS.food.expertise, CONSUMABLE_SETS.food.mastery, CONSUMABLE_SETS.food.generic],
+    potions: [CONSUMABLE_SETS.potions.strength]
+  },
+
+  'warrior-arms': {
+    flasks: [CONSUMABLE_SETS.flasks.strength],
+    food: [CONSUMABLE_SETS.food.strength, CONSUMABLE_SETS.food.generic],
+    potions: [CONSUMABLE_SETS.potions.strength]
+  },
+
+  'paladin-holy': {
+    flasks: [CONSUMABLE_SETS.flasks.intellect],
+    food: [CONSUMABLE_SETS.food.intellect, CONSUMABLE_SETS.food.generic],
+    potions: [CONSUMABLE_SETS.potions.mana]
+  },
+
+  'paladin-protection': {
+    flasks: [CONSUMABLE_SETS.flasks.stamina, CONSUMABLE_SETS.flasks.strength],
+    food: [CONSUMABLE_SETS.food.hit, CONSUMABLE_SETS.food.expertise, CONSUMABLE_SETS.food.mastery, CONSUMABLE_SETS.food.stamina],
+    potions: [CONSUMABLE_SETS.potions.armor, CONSUMABLE_SETS.potions.strength]
+  },
+
+  'paladin-retribution': {
+    flasks: [CONSUMABLE_SETS.flasks.strength, CONSUMABLE_SETS.flasks.stamina],
+    food: [CONSUMABLE_SETS.food.hit, CONSUMABLE_SETS.food.expertise, CONSUMABLE_SETS.food.mastery, CONSUMABLE_SETS.food.generic],
+    potions: [CONSUMABLE_SETS.potions.strength]
+  },
+
+  'hunter-beast': {
+    flasks: [CONSUMABLE_SETS.flasks.agility],
+    food: [CONSUMABLE_SETS.food.agility, CONSUMABLE_SETS.food.generic],
+    potions: [CONSUMABLE_SETS.potions.agility]
+  },
+
+  'hunter-marksmanship': {
+    flasks: [CONSUMABLE_SETS.flasks.agility],
+    food: [CONSUMABLE_SETS.food.agility, CONSUMABLE_SETS.food.generic],
+    potions: [CONSUMABLE_SETS.potions.agility]
+  },
+
+  'hunter-survival': {
+    flasks: [CONSUMABLE_SETS.flasks.agility],
+    food: [CONSUMABLE_SETS.food.agility, CONSUMABLE_SETS.food.generic],
+    potions: [CONSUMABLE_SETS.potions.agility]
+  },
+
+  'rogue-assassination': {
+    flasks: [CONSUMABLE_SETS.flasks.agility],
+    food: [CONSUMABLE_SETS.food.agility, CONSUMABLE_SETS.food.generic],
+    potions: [CONSUMABLE_SETS.potions.agility]
+  },
+
+  'rogue-combat': {
+    flasks: [CONSUMABLE_SETS.flasks.agility],
+    food: [CONSUMABLE_SETS.food.agility, CONSUMABLE_SETS.food.generic],
+    potions: [CONSUMABLE_SETS.potions.agility]
+  },
+
+  'rogue-subtlety': {
+    flasks: [CONSUMABLE_SETS.flasks.agility],
+    food: [CONSUMABLE_SETS.food.agility, CONSUMABLE_SETS.food.generic],
+    potions: [CONSUMABLE_SETS.potions.agility]
+  },
+
+  'priest-holy': {
+    flasks: [CONSUMABLE_SETS.flasks.intellect],
+    food: [CONSUMABLE_SETS.food.intellect, CONSUMABLE_SETS.food.generic],
+    potions: [CONSUMABLE_SETS.potions.mana, CONSUMABLE_SETS.potions.intellect]
+  },
+
+  'priest-discipline': {
+    flasks: [CONSUMABLE_SETS.flasks.intellect],
+    food: [CONSUMABLE_SETS.food.intellect, CONSUMABLE_SETS.food.generic],
+    potions: [CONSUMABLE_SETS.potions.mana, CONSUMABLE_SETS.potions.intellect]
+  },
+
+  'priest-shadow': {
+    flasks: [CONSUMABLE_SETS.flasks.intellect],
+    food: [CONSUMABLE_SETS.food.intellect, CONSUMABLE_SETS.food.generic],
+    potions: [CONSUMABLE_SETS.potions.intellect]
+  },
+
+  'shaman-elemental': {
+    flasks: [CONSUMABLE_SETS.flasks.intellect],
+    food: [CONSUMABLE_SETS.food.intellect, CONSUMABLE_SETS.food.generic],
+    potions: [CONSUMABLE_SETS.potions.intellect]
+  },
+
+  'shaman-enhancement': {
+    flasks: [CONSUMABLE_SETS.flasks.agility],
+    food: [CONSUMABLE_SETS.food.agility, CONSUMABLE_SETS.food.generic],
+    potions: [CONSUMABLE_SETS.potions.agility]
+  },
+
+  'shaman-restoration': {
+    flasks: [CONSUMABLE_SETS.flasks.intellect],
+    food: [CONSUMABLE_SETS.food.intellect, CONSUMABLE_SETS.food.generic],
+    potions: [CONSUMABLE_SETS.potions.mana, CONSUMABLE_SETS.potions.intellect]
+  },
+
+  'mage-arcane': {
+    flasks: [CONSUMABLE_SETS.flasks.intellect],
+    food: [CONSUMABLE_SETS.food.intellect, CONSUMABLE_SETS.food.generic],
+    potions: [CONSUMABLE_SETS.potions.intellect]
+  },
+
+  'mage-fire': {
+    flasks: [CONSUMABLE_SETS.flasks.intellect],
+    food: [CONSUMABLE_SETS.food.intellect, CONSUMABLE_SETS.food.generic],
+    potions: [CONSUMABLE_SETS.potions.intellect]
+  },
+
+  'mage-frost': {
+    flasks: [CONSUMABLE_SETS.flasks.intellect],
+    food: [CONSUMABLE_SETS.food.intellect, CONSUMABLE_SETS.food.generic],
+    potions: [CONSUMABLE_SETS.potions.intellect]
+  },
+
+  'warlock-affliction': {
+    flasks: [CONSUMABLE_SETS.flasks.intellect],
+    food: [CONSUMABLE_SETS.food.intellect, CONSUMABLE_SETS.food.generic],
+    potions: [CONSUMABLE_SETS.potions.intellect]
+  },
+
+  'warlock-demonology': {
+    flasks: [CONSUMABLE_SETS.flasks.intellect],
+    food: [CONSUMABLE_SETS.food.intellect, CONSUMABLE_SETS.food.generic],
+    potions: [CONSUMABLE_SETS.potions.intellect]
+  },
+
+  'warlock-destruction': {
+    flasks: [CONSUMABLE_SETS.flasks.intellect],
+    food: [CONSUMABLE_SETS.food.intellect, CONSUMABLE_SETS.food.generic],
+    potions: [CONSUMABLE_SETS.potions.intellect]
+  },
+
+  'druid-balance': {
+    flasks: [CONSUMABLE_SETS.flasks.intellect],
+    food: [CONSUMABLE_SETS.food.intellect, CONSUMABLE_SETS.food.generic],
+    potions: [CONSUMABLE_SETS.potions.intellect]
+  },
+
+  'druid-feral': {
+    flasks: [CONSUMABLE_SETS.flasks.agility],
+    food: [CONSUMABLE_SETS.food.agility, CONSUMABLE_SETS.food.generic],
+    potions: [CONSUMABLE_SETS.potions.agility]
+  },
+
+  'druid-guardian': {
+    flasks: [CONSUMABLE_SETS.flasks.armor, CONSUMABLE_SETS.flasks.crit],
+    food: [CONSUMABLE_SETS.food.stamina, CONSUMABLE_SETS.food.agility, CONSUMABLE_SETS.food.generic],
+    potions: [CONSUMABLE_SETS.potions.agility]
+  },
+
+  'druid-restoration': {
+    flasks: [CONSUMABLE_SETS.flasks.intellect],
+    food: [CONSUMABLE_SETS.food.intellect, CONSUMABLE_SETS.food.generic],
+    potions: [CONSUMABLE_SETS.potions.mana, CONSUMABLE_SETS.potions.intellect]
+  },
+
+  'deathknight-blood': {
+    flasks: [CONSUMABLE_SETS.flasks.strength, CONSUMABLE_SETS.flasks.stamina],
+    food: [CONSUMABLE_SETS.food.hit, CONSUMABLE_SETS.food.expertise, CONSUMABLE_SETS.food.mastery, CONSUMABLE_SETS.food.generic],
+    potions: [CONSUMABLE_SETS.potions.strength, CONSUMABLE_SETS.potions.haste]
+  },
+
+  'deathknight-frost': {
+    flasks: [CONSUMABLE_SETS.flasks.strength, CONSUMABLE_SETS.flasks.stamina],
+    food: [CONSUMABLE_SETS.food.hit, CONSUMABLE_SETS.food.expertise, CONSUMABLE_SETS.food.mastery, CONSUMABLE_SETS.food.generic],
+    potions: [CONSUMABLE_SETS.potions.strength]
+  },
+
+  'deathknight-unholy': {
+    flasks: [CONSUMABLE_SETS.flasks.strength, CONSUMABLE_SETS.flasks.stamina],
+    food: [CONSUMABLE_SETS.food.hit, CONSUMABLE_SETS.food.expertise, CONSUMABLE_SETS.food.mastery, CONSUMABLE_SETS.food.generic],
+    potions: [CONSUMABLE_SETS.potions.strength]
+  },
+
+  'monk-brewmaster': {
+    flasks: [CONSUMABLE_SETS.flasks.agility],
+    food: [CONSUMABLE_SETS.food.agility, CONSUMABLE_SETS.food.hit, CONSUMABLE_SETS.food.expertise],
+    potions: [CONSUMABLE_SETS.potions.agility]
+  },
+
+  'monk-mistweaver': {
+    flasks: [CONSUMABLE_SETS.flasks.intellect],
+    food: [CONSUMABLE_SETS.food.intellect, CONSUMABLE_SETS.food.generic],
+    potions: [CONSUMABLE_SETS.potions.mana, CONSUMABLE_SETS.potions.intellect]
+  },
+
+  'monk-windwalker': {
+    flasks: [CONSUMABLE_SETS.flasks.agility],
+    food: [CONSUMABLE_SETS.food.agility, CONSUMABLE_SETS.food.generic],
+    potions: [CONSUMABLE_SETS.potions.agility]
+  }
+};
+
 export const CLASS_SPECS = {
   'warrior-fury': { class: 'Warrior', spec: 'Fury', role: 'DPS' },
   'warrior-protection': { class: 'Warrior', spec: 'Protection', role: 'Tank' },
@@ -325,12 +267,12 @@ export const CLASS_SPECS = {
   'deathknight-blood': { class: 'Death Knight', spec: 'Blood', role: 'Tank' },
   'deathknight-frost': { class: 'Death Knight', spec: 'Frost', role: 'DPS' },
   'deathknight-unholy': { class: 'Death Knight', spec: 'Unholy', role: 'DPS' },
-  'demonhunter-havoc': { class: 'Demon Hunter', spec: 'Havoc', role: 'DPS' },
-  'demonhunter-vengeance': { class: 'Demon Hunter', spec: 'Vengeance', role: 'Tank' },
+  // 'demonhunter-havoc': { class: 'Demon Hunter', spec: 'Havoc', role: 'DPS' },
+  // 'demonhunter-vengeance': { class: 'Demon Hunter', spec: 'Vengeance', role: 'Tank' },
   'monk-brewmaster': { class: 'Monk', spec: 'Brewmaster', role: 'Tank' },
   'monk-mistweaver': { class: 'Monk', spec: 'Mistweaver', role: 'Healer' },
   'monk-windwalker': { class: 'Monk', spec: 'Windwalker', role: 'DPS' },
-  'evoker-devastation': { class: 'Evoker', spec: 'Devastation', role: 'DPS' },
-  'evoker-preservation': { class: 'Evoker', spec: 'Preservation', role: 'Healer' },
-  'evoker-augmentation': { class: 'Evoker', spec: 'Augmentation', role: 'Support' }
+  // 'evoker-devastation': { class: 'Evoker', spec: 'Devastation', role: 'DPS' },
+  // 'evoker-preservation': { class: 'Evoker', spec: 'Preservation', role: 'Healer' },
+  // 'evoker-augmentation': { class: 'Evoker', spec: 'Augmentation', role: 'Support' }
 };

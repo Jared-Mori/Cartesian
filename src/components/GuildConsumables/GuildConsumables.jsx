@@ -22,7 +22,6 @@ export default function GuildConsumables() {
     const loadConsumables = async () => {
       const allItems = [
         ...consumableData.flasks,
-        ...consumableData.elixirs,
         ...consumableData.food,
         ...consumableData.potions
       ];
@@ -150,7 +149,7 @@ export default function GuildConsumables() {
     );
   };
 
-  const consumableData = CONSUMABLES_DATA[selectedClassSpec] || { flasks: [], elixirs: [], food: [], potions: [] };
+  const consumableData = CONSUMABLES_DATA[selectedClassSpec] || { flasks: [], food: [], potions: [] };
 
   return (
     <div className={styles.consumablesContainer}>
@@ -170,54 +169,47 @@ export default function GuildConsumables() {
       </div>
 
       <div className={styles.consumablesGrid}>
-        {/* Flasks Section */}
-        <div className={styles.categorySection}>
-          <h3>Flasks</h3>
-          <div className={styles.categoryItems}>
-            <div className={styles.itemsColumn}>
-              {consumableData.flasks.map((itemId, index) => renderConsumableIcon(itemId, index))}
+        {/* Left Column - Flasks and Potions */}
+        <div className={styles.leftColumn}>
+          {/* Flasks Section */}
+          <div className={styles.categorySection}>
+            <h3>Flasks</h3>
+            <div className={styles.categoryItems}>
+              <div className={styles.itemsColumn}>
+                {consumableData.flasks.map((itemId, index) => renderConsumableIcon(itemId, index))}
+              </div>
+              <div className={styles.namesColumn}>
+                {consumableData.flasks.map((itemId, index) => renderConsumableName(itemId, index))}
+              </div>
             </div>
-            <div className={styles.namesColumn}>
-              {consumableData.flasks.map((itemId, index) => renderConsumableName(itemId, index))}
+          </div>
+
+          {/* Potions Section */}
+          <div className={styles.categorySection}>
+            <h3>Potions</h3>
+            <div className={styles.categoryItems}>
+              <div className={styles.itemsColumn}>
+                {consumableData.potions.map((itemId, index) => renderConsumableIcon(itemId, index))}
+              </div>
+              <div className={styles.namesColumn}>
+                {consumableData.potions.map((itemId, index) => renderConsumableName(itemId, index))}
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Elixirs Section */}
-        <div className={styles.categorySection}>
-          <h3>Elixirs</h3>
-          <div className={styles.categoryItems}>
-            <div className={styles.itemsColumn}>
-              {consumableData.elixirs.map((itemId, index) => renderConsumableIcon(itemId, index))}
-            </div>
-            <div className={styles.namesColumn}>
-              {consumableData.elixirs.map((itemId, index) => renderConsumableName(itemId, index))}
-            </div>
-          </div>
-        </div>
-
-        {/* Food Section */}
-        <div className={styles.categorySection}>
-          <h3>Food</h3>
-          <div className={styles.categoryItems}>
-            <div className={styles.itemsColumn}>
-              {consumableData.food.map((itemId, index) => renderConsumableIcon(itemId, index))}
-            </div>
-            <div className={styles.namesColumn}>
-              {consumableData.food.map((itemId, index) => renderConsumableName(itemId, index))}
-            </div>
-          </div>
-        </div>
-
-        {/* Potions Section */}
-        <div className={styles.categorySection}>
-          <h3>Potions</h3>
-          <div className={styles.categoryItems}>
-            <div className={styles.itemsColumn}>
-              {consumableData.potions.map((itemId, index) => renderConsumableIcon(itemId, index))}
-            </div>
-            <div className={styles.namesColumn}>
-              {consumableData.potions.map((itemId, index) => renderConsumableName(itemId, index))}
+        {/* Right Column - Food */}
+        <div className={styles.rightColumn}>
+          {/* Food Section */}
+          <div className={styles.categorySection}>
+            <h3>Food</h3>
+            <div className={styles.categoryItems}>
+              <div className={styles.itemsColumn}>
+                {consumableData.food.map((itemId, index) => renderConsumableIcon(itemId, index))}
+              </div>
+              <div className={styles.namesColumn}>
+                {consumableData.food.map((itemId, index) => renderConsumableName(itemId, index))}
+              </div>
             </div>
           </div>
         </div>

@@ -33,26 +33,125 @@
 }
 
 .dropdown {
-  padding: 8px 12px;
-  background: linear-gradient(135deg, #2a2a2a 0%, #1e1e1e 100%);
-  border: 1px solid #404040;
-  border-radius: 4px;
-  color: #e0e0e0;
-  font-size: 12px;
-  min-width: 250px;
+  padding: 0.75rem 1.5rem;
+  background: rgba(30, 30, 30, 0.8);
+  border: 2px solid #4a5568;
+  border-radius: 6px;
+  color: #e2e8f0;
+  font-size: 1rem;
+  min-width: 280px;
   font-family: inherit;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(20, 184, 166, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  /* Force override any inherited blue styles */
+  border-color: #4a5568 !important;
+  background-color: rgba(30, 30, 30, 0.8) !important;
+  /* Override any global button/link styles */
+  text-decoration: none !important;
 }
 
 .dropdown:focus {
-  outline: none;
-  border-color: #666;
-  box-shadow: 0 0 0 2px rgba(102, 102, 102, 0.3);
+  outline: none !important;
+  border-color: #6b7280 !important;
+  box-shadow: 0 0 0 2px rgba(107, 114, 128, 0.3), 0 2px 8px rgba(20, 184, 166, 0.3) !important;
+  background: rgba(50, 50, 50, 0.9) !important;
+  background-color: rgba(50, 50, 50, 0.9) !important;
+  /* Override webkit focus ring */
+  -webkit-focus-ring-color: transparent !important;
+}
+
+.dropdown:hover {
+  background: rgba(50, 50, 50, 0.9) !important;
+  background-color: rgba(50, 50, 50, 0.9) !important;
+  border-color: #6b7280 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3) !important;
+  /* Override any inherited hover colors */
+  color: #e2e8f0 !important;
+}
+
+/* Override any global focus-visible styles */
+.dropdown:focus-visible {
+  outline: none !important;
+  border-color: #6b7280 !important;
+  box-shadow: 0 0 0 2px rgba(107, 114, 128, 0.3), 0 2px 8px rgba(20, 184, 166, 0.3) !important;
+}
+
+.dropdown option {
+  background: #2a2a2a !important;
+  color: #e2e8f0 !important;
+  padding: 8px;
+  border: none !important;
+}
+
+.dropdown option:hover {
+  background: #4a5568 !important;
+  color: #ffffff !important;
+}
+
+.dropdown option:focus {
+  background: #4a5568 !important;
+  color: #ffffff !important;
+  outline: none !important;
+}
+
+.dropdown option:checked,
+.dropdown option:selected {
+  background: #14b8a6 !important;
+  color: #ffffff !important;
+}
+
+/* Additional override for browser defaults */
+.dropdown option:active {
+  background: #4a5568 !important;
+  color: #ffffff !important;
+}
+
+/* Custom scrollbar for dropdown when expanded */
+.dropdown::-webkit-scrollbar {
+  width: 8px;
+}
+
+.dropdown::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 4px;
+}
+
+.dropdown::-webkit-scrollbar-thumb {
+  background: #4a5568;
+  border-radius: 4px;
+  border: 1px solid #2a2a2a;
+}
+
+.dropdown::-webkit-scrollbar-thumb:hover {
+  background: #6b7280;
 }
 
 /* Grid layout for consumables sections */
 .consumablesGrid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  gap: 24px;
+}
+
+/* Left column - Flasks and Potions */
+.leftColumn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Right column - Food */
+.rightColumn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
   gap: 24px;
 }
 
