@@ -6,16 +6,6 @@
       "maxDuration": 10
     }
   },
-  "rewrites": [
-    {
-      "source": "/api/guild/(.*)",
-      "destination": "/api/guild/[...params]"
-    },
-    {
-      "source": "/api/character/(.*)",
-      "destination": "/api/character/[...params]"
-    }
-  ],
   "headers": [
     {
       "source": "/api/(.*)",
